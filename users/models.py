@@ -9,7 +9,7 @@ class user(AbstractUser):
         ('CAJERO','Cajero'),
         ('CLIENTE','Cliente')
     ]
-    rol=models.CharField (max_lenght=10,choices=Roles, default='CLIENTE')
+    rol=models.CharField (max_length=10,choices=Roles, default='CLIENTE')
     email=models.EmailField(unique=True)
 
     def __str__(self):

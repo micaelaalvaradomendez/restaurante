@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 user=get_user_model()
 
 class Category(models.Model):
-    name=models.CharField(max_length=100);
+    name=models.CharField(max_length=100)
     description = models.TextField()
     is_active = models.BooleanField(default=True)
     def __str__(self):
@@ -12,7 +12,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    title=models.CharField(max_lenght=100, blank=True)
+    title=models.CharField(max_length=100, blank=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField()
