@@ -16,6 +16,8 @@ python -m venv env
 - Linux/Mac: source env/bin/activate
 - Windows: source env/Scripts/activate
 - Windows (alternativa): ./env/Scripts.activate
+en VSC
+.\env\Scripts\activate
 
 ## Instalar dependencias
 pip install -r requirements
