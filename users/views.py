@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from users.decorators import admin_required, cashier_required, client_required, admin_or_cashier_required
+from users.decorators import admin_required, cashier_required, client_required, admin_or_cashier_required, role_required
 
 @admin_required
 def admin_dashboard(request):
