@@ -175,3 +175,5 @@ cython_debug/
 
 products/
 "db.sqlite3" 
+"db.sqlite3" 
+"*.sqlite3" 
