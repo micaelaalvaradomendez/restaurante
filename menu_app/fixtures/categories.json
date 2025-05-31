@@ -1,0 +1,47 @@
+[
+  {
+    "model": "menu_app.category",
+    "pk": 1,
+    "fields": {
+      "name": "Pizzas",
+      "description": "Variedades de pizzas con masa artesanal y los mejores ingredientes.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "menu_app.category",
+    "pk": 2,
+    "fields": {
+      "name": "Ensaladas",
+      "description": "Ensaladas frescas y saludables con ingredientes de temporada.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "menu_app.category",
+    "pk": 3,
+    "fields": {
+      "name": "Hamburguesas",
+      "description": "Hamburguesas gourmet con carne premium y pan casero.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "menu_app.category",
+    "pk": 4,
+    "fields": {
+      "name": "Bebidas",
+      "description": "Refrescos, jugos naturales y bebidas alcohólicas.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "menu_app.category",
+    "pk": 5,
+    "fields": {
+      "name": "Postres",
+      "description": "Deliciosos postres caseros para completar tu experiencia.",
+      "is_active": true
+    }
+  }
+]
