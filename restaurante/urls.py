@@ -24,5 +24,6 @@ urlpatterns = [
     path("bookings/", include("bookings.urls")),
     path("orders/", include("orders.urls")),
     path("users/", include("users.urls")),
-    path("notifications/", include("notifications.urls"))
+    path("notifications/", include("notifications.urls")),
+    path('admin-custom/', include('admin_custom.urls'))
 ]
