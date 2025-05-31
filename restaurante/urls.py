@@ -37,4 +37,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(
         next_page='home.html'
     ), name='logout'),
+    path('admin-custom/', include('admin_custom.urls'))
 ]
