@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from users.decorators import admin_required, cashier_required, client_required, admin_or_cashier_required, role_required
 
 @admin_required
@@ -22,3 +23,9 @@ def some_shared_view(request):
     # Para admin y cajeros
     return render(request, 'shared/view.html')
 # Create your views here.
+
+@client_required
+def perfil_usuario(request):
+    return render(request, 'perfil/perfil.html', {
+        'usuario': request.user
+    })
