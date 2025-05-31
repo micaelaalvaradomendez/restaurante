@@ -1,6 +1,5 @@
 # models/product.py
 from django.db import models
-from .category import Category
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
@@ -9,7 +8,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField()
     image = models.ImageField(upload_to="products/", null=True, blank=True)
-    categories = models.ManyToManyField(Category, blank=True)  # relacion muchos a muchos
+    categories = models.ManyToManyField("Category", blank=True)  # relacion muchos a muchos
     is_available = models.BooleanField(default=True)
     
     def __str__(self):

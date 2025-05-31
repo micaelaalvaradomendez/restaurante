@@ -1,5 +1,6 @@
 # models/category.py
 from django.db import models
+from django.shortcuts import render
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
