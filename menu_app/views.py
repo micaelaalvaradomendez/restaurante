@@ -1,25 +1,7 @@
-from django.views.generic import TemplateView, ListView, DetailView
-from .models import Product
+# Este archivo ahora importa las vistas del módulo views
+from .views.home_view import HomeView
+from .views.menu_list_view import MenuListView
+from .views.product_detail_view import ProductDetailView
 
-
-class HomeView(TemplateView):
-    template_name = "home.html"
-
-
-class MenuListView(ListView):
-    model = Product
-    template_name = "menu_app/menu.html"
-    context_object_name = "menu_items"
-
-    def get_queryset(self):
-        return Product.objects.all().order_by("name")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = "menu_app/product_detail.html"
-    context_object_name = "product"
+# Exportamos todas las clases para mantener compatibilidad con el código existente
+__all__ = ['HomeView', 'MenuListView', 'ProductDetailView']

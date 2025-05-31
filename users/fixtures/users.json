@@ -1,0 +1,50 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "password": "pbkdf2_sha256$600000$VFw9EfpVnqx6gfC2D8WXSB$zZFIveVBW5NsMXoQnwwMu/aJ+2v/OTVTgLrCcHiWBpM=",
+      "email": "admin@restaurante.com",
+      "first_name": "Admin",
+      "last_name": "Usuario",
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": true,
+      "date_joined": "2025-05-01T12:00:00Z",
+      "rol": "ADMIN"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "username": "cajero",
+      "password": "pbkdf2_sha256$600000$VFw9EfpVnqx6gfC2D8WXSB$zZFIveVBW5NsMXoQnwwMu/aJ+2v/OTVTgLrCcHiWBpM=",
+      "email": "cajero@restaurante.com",
+      "first_name": "Cajero",
+      "last_name": "Demo",
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": false,
+      "date_joined": "2025-05-01T12:00:00Z",
+      "rol": "CAJERO"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "username": "cliente",
+      "password": "pbkdf2_sha256$600000$VFw9EfpVnqx6gfC2D8WXSB$zZFIveVBW5NsMXoQnwwMu/aJ+2v/OTVTgLrCcHiWBpM=",
+      "email": "cliente@example.com",
+      "first_name": "Cliente",
+      "last_name": "Ejemplo",
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "date_joined": "2025-05-01T12:00:00Z",
+      "rol": "CLIENTE"
+    }
+  }
+]

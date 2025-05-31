@@ -1,0 +1,38 @@
+[
+  {
+    "model": "menu_app.rating",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "product": 1,
+      "rating": 5,
+      "title": "Excelente pizza",
+      "text": "La mejor pizza que he probado en la ciudad. Los ingredientes son frescos y la masa tiene un punto perfecto.",
+      "created_at": "2025-05-15T14:30:00Z"
+    }
+  },
+  {
+    "model": "menu_app.rating",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "product": 2,
+      "rating": 4,
+      "title": "Buena ensalada",
+      "text": "Ensalada muy fresca y bien servida. El aderezo César es muy bueno aunque podría tener un poco más.",
+      "created_at": "2025-05-16T18:45:00Z"
+    }
+  },
+  {
+    "model": "menu_app.rating",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "product": 3,
+      "rating": 4,
+      "title": "Hamburguesa deliciosa",
+      "text": "La hamburguesa está muy bien preparada, la carne es jugosa y el pan es fresco.",
+      "created_at": "2025-05-17T20:15:00Z"
+    }
+  }
+]
