@@ -37,13 +37,13 @@ class User(AbstractUser):
     
     # Métodos para verificar roles (compatibles con los decoradores)
     def is_admin(self):
-        return self.rol == self.Roles.ADMIN or self.is_superuser
+        return self.rol == 'ADMIN' or self.is_superuser  
     
     def is_cashier(self):
-        return self.rol == self.Roles.CAJERO
+        return self.rol == 'CAJERO'
     
     def is_client(self):
-        return self.rol == self.Roles.CLIENTE
+        return self.rol == 'CLIENTE'
     
     # Métodos para permisos específicos
     def can_manage_products(self):
