@@ -8,4 +8,3 @@ from .models.product import Product
 
 # Exportamos todas las clases para mantener compatibilidad con el código existente
 __all__ = ['HomeView', 'MenuListView', 'ProductDetailView','menu_por_categorias']
-

@@ -52,14 +52,19 @@
                                     {% navbar_link 'perfil' 'Mi Perfil' %}
                                 </li>
                                 <li class="nav-item">
-                                    {% navbar_link 'logout' 'Cerrar sesión' %}
+                                    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none;">
+                                            Cerrar sesión
+                                        </button>
+                                    </form>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    {% navbar_link 'perfil1' 'Iniciar sesión' %}
+                                    {% navbar_link 'login1' 'Iniciar sesión' %}
                                 </li>
                             {% endif %}
-                        </ul>
+                        </ul>                        
                     </div>
                     
             </div>

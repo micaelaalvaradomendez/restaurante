@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.decorators import admin_required, cashier_required, client_required, admin_or_cashier_required, role_required
+from django.contrib.auth.forms import UserCreationForm
 
 @admin_required
 def admin_dashboard(request):
@@ -26,6 +27,6 @@ def some_shared_view(request):
 
 @client_required
 def perfil_usuario(request):
-    return render(request, 'perfil/perfil.html', {
+    return render(request, 'perfil.html', {
         'usuario': request.user
     })
