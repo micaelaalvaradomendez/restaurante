@@ -11,7 +11,7 @@
       "image": "/static/images/pizza_margherita.jpg",
       "is_available": true,
       "categories": [
-        1
+        2
       ]
     }
   },
@@ -27,7 +27,7 @@
       "image": "/static/images/pizza_pepperoni.jpg",
       "is_available": true,
       "categories": [
-        1
+        2
       ]
     }
   },
@@ -43,7 +43,7 @@
       "image": "/static/images/fugazzeta-argentina.jpg",
       "is_available": true,
       "categories": [
-        1
+        2
       ]
     }
   },
@@ -59,7 +59,7 @@
       "image": "/static/images/ensalada_cesar.jpg",
       "is_available": true,
       "categories": [
-        2
+        1
       ]
     }
   },
@@ -75,7 +75,7 @@
       "image": "/static/images/hamburguesa.jpg",
       "is_available": true,
       "categories": [
-        3
+        2
       ]
     }
   },
@@ -91,7 +91,7 @@
       "image": "/static/images/tiramisu.jpg",
       "is_available": true,
       "categories": [
-        5
+        3
       ]
     }
   },
@@ -107,7 +107,7 @@
       "image": "/static/images/brownie.jpg",
       "is_available": true,
       "categories": [
-        5
+        3
       ]
     }
   },
@@ -124,6 +124,118 @@
       "is_available": true,
       "categories": [
         4
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 9,
+    "fields": {
+      "name": "Mojito",
+      "title": "Mojito",
+      "description": "Refrescante cóctel cubano con ron, menta, azúcar, lima y soda.",
+      "price": 10000.00,
+      "quantity": 15,
+      "image": "/static/images/mojito.jpg",
+      "is_available": true,
+      "categories": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 10,
+    "fields": {
+      "name": "Gin-Tonic",
+      "title": "Gin-Tonic",
+      "description": "Cóctel refrescante con ginebra, agua tónica y rodajas de limón.",
+      "price": 11000.00,
+      "quantity": 15,
+      "image": "/static/images/gin-tonic.jpg",
+      "is_available": true,
+      "categories": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 11,
+    "fields": {
+      "name": "Coca Cola Vidrio",
+      "title": "Coca Cola Vidrio",
+      "description": "Refresco clásico en botella de vidrio, ideal para acompañar tus comidas.",
+      "price": 4000.00,
+      "quantity": 15,
+      "image": "/static/images/coca-vidrio.jpg",
+      "is_available": true,
+      "categories": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 12,
+    "fields": {
+      "name": "Café con Leche",
+      "title": "Café con Leche",
+      "description": "Café con leche caliente, servido en una taza grande.",
+      "price": 5000.00,
+      "quantity": 15,
+      "image": "/static/images/cafe.jpg",
+      "is_available": true,
+      "categories": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 13,
+    "fields": {
+      "name": "Torta Matilda",
+      "title": "Torta Matilda",
+      "description": "Porcion de torta formada por tres discos de bizcochuelo de chocolate y café. Rellena y recubierta en crema de Chocolate.",
+      "price": 7000.00,
+      "quantity": 15,
+      "image": "/static/images/matilda.jpg",
+      "is_available": true,
+      "categories": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 14,
+    "fields": {
+      "name": "Macarons",
+      "title": "Macarons",
+      "description": "Galleta francesa hecha con clara de huevo, azúcar glas, almendra molida y colorante, rellena con crema de mantequilla o ganache.",
+      "price": 6000.00,
+      "quantity": 15,
+      "image": "/static/images/macarons.jpg",
+      "is_available": true,
+      "categories": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 15,
+    "fields": {
+      "name": "Crema de tomate asados",
+      "title": "Crema de tomate asados",
+      "description": "Deliciosa crema de tomates que se toma caliente, un sabor increíble a tomate, que previamente hemos asado en el horno junto con cebolla y ajos que queda un poco caramelizado.",
+      "price": 7500.00,
+      "quantity": 15,
+      "image": "/static/images/cremadetomate.jpg",
+      "is_available": true,
+      "categories": [
+        1
       ]
     }
   }
