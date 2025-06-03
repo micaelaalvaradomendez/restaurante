@@ -1,101 +1,130 @@
 [
-    {
-      "model": "menu_app.product",
-      "pk": 1,
-      "fields": {
-        "name": "Pizza Margherita",
-        "title": "Pizza Margherita",
-        "description": "Pizza napolitana clásica hecha con tomate, mozzarella y albahaca fresca",
-        "price": 20000.00,
-        "quantity": 5,
-        "image": "/static/images/pizza_margherita.jpg",
-        "is_available": true,
-        "categories": [1]
-      }
-    },
-    {
-      "model": "menu_app.product",
-      "pk": 5,
-      "fields": {
-        "name": "Pizza Pepperoni",
-        "title": "Pizza Pepperoni",
-        "description": "Una deliciosa pizza con una base de masa fina y crujiente, cubierta con salsa de tomate, queso mozzarella derretido y rodajas de pepperoni picante.",
-        "price": 25000.00,
-        "quantity": 4,
-        "image": "/static/images/pizza_pepperoni.jpg",
-        "is_available": true,
-        "categories": [1]
-      }
-    },
-    {
-      "model": "menu_app.product",
-      "pk": 4,
-      "fields": {
-        "name": "Pizza Fugazzeta",
-        "title": "Pizza Fugazzeta",
-        "description": "Su sabor intenso y su textura jugosa la convierten en una opción irresistible. La pizza de fugazzeta es una deliciosa variante de la clásica pizza argentina, que se distingue por su generosa cantidad de cebolla y su característico relleno de queso",
-        "price": 22000.00,
-        "quantity": 3,
-        "image": "/static/images/fugazzeta-argentina.jpg",
-        "is_available": true,
-        "categories": [1]
-      }
-    },
-    {
-      "model": "menu_app.product",
-      "pk": 2,
-      "fields": {
-        "name": "Ensalada César",
-        "title": "Ensalada César",
-        "description": "ensalada de lechuga romana y croûtons (trozos de pan tostado) con jugo de limón, aceite de oliva, huevo, salsa Worcestershire, anchoas, ajo, mostaza de Dijon (opcional), queso parmesano y pimienta negra.",
-        "price": 15000.00,
-        "quantity": 10,
-        "image": "/static/images/ensalada_cesar.jpg",
-        "is_available": true,
-        "categories": [2]
-      }
-    },
-    {
-      "model": "menu_app.product",
-      "pk": 3,
-      "fields": {
-        "name": "Hamburguesa Clásica",
-        "title": "Hamburguesa Clásica",
-        "description": "Hamburguesa con carne de res, lechuga, tomate y mayonesa.",
-        "price": 13000.00,
-        "quantity": 15,
-        "image": "/static/images/hamburguesa.jpg",
-        "is_available": true,
-        "categories": [3]
-      }
-    },
-    {
-      "model": "menu_app.product",
-      "pk": 6,
-      "fields": {
-        "name": "Tiramisu",
-        "title": "Tiramisu",
-        "description": "Postre que combina capas de cremas heladas de queso, sabayón, y café, separadas con vainillas húmedas en licor y almíbar  de café. Base de pionono. Decorado con mouse de café.",
-        "price": 9000.00,
-        "quantity": 20,
-        "image": "/static/images/tiramisu.jpg",
-        "is_available": true,
-        "categories": [5]
-      }
-    },
-    {
-      "model": "menu_app.product",
-      "pk": 7,
-      "fields": {
-        "name": "Brownie con Helado",
-        "title": "Brownie con Helado",
-        "description": "Brownie casero, caliente y fudgy, acompañado de una generosa porción de helado de vainilla.",
-        "price": 8500.00,
-        "quantity": 15,
-        "image": "/static/images/brownie.jpg",
-        "is_available": true,
-        "categories": [5]
-      }
+  {
+    "model": "menu_app.product",
+    "pk": 1,
+    "fields": {
+      "name": "Pizza Margherita",
+      "title": "Pizza Margherita",
+      "description": "Pizza napolitana clásica hecha con tomate, mozzarella y albahaca fresca",
+      "price": 20000.00,
+      "quantity": 5,
+      "image": "/static/images/pizza_margherita.jpg",
+      "is_available": true,
+      "categories": [
+        1
+      ]
     }
-  ]
-  
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 5,
+    "fields": {
+      "name": "Pizza Pepperoni",
+      "title": "Pizza Pepperoni",
+      "description": "Una deliciosa pizza con una base de masa fina y crujiente, cubierta con salsa de tomate, queso mozzarella derretido y rodajas de pepperoni picante.",
+      "price": 25000.00,
+      "quantity": 4,
+      "image": "/static/images/pizza_pepperoni.jpg",
+      "is_available": true,
+      "categories": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 4,
+    "fields": {
+      "name": "Pizza Fugazzeta",
+      "title": "Pizza Fugazzeta",
+      "description": "Su sabor intenso y su textura jugosa la convierten en una opción irresistible. La pizza de fugazzeta es una deliciosa variante de la clásica pizza argentina, que se distingue por su generosa cantidad de cebolla y su característico relleno de queso",
+      "price": 22000.00,
+      "quantity": 3,
+      "image": "/static/images/fugazzeta-argentina.jpg",
+      "is_available": true,
+      "categories": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 2,
+    "fields": {
+      "name": "Ensalada César",
+      "title": "Ensalada César",
+      "description": "ensalada de lechuga romana y croûtons (trozos de pan tostado) con jugo de limón, aceite de oliva, huevo, salsa Worcestershire, anchoas, ajo, mostaza de Dijon (opcional), queso parmesano y pimienta negra.",
+      "price": 15000.00,
+      "quantity": 10,
+      "image": "/static/images/ensalada_cesar.jpg",
+      "is_available": true,
+      "categories": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 3,
+    "fields": {
+      "name": "Hamburguesa Clásica",
+      "title": "Hamburguesa Clásica",
+      "description": "Hamburguesa con carne de res, lechuga, tomate y mayonesa.",
+      "price": 13000.00,
+      "quantity": 15,
+      "image": "/static/images/hamburguesa.jpg",
+      "is_available": true,
+      "categories": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 6,
+    "fields": {
+      "name": "Tiramisu",
+      "title": "Tiramisu",
+      "description": "Postre que combina capas de cremas heladas de queso, sabayón, y café, separadas con vainillas húmedas en licor y almíbar  de café. Base de pionono. Decorado con mouse de café.",
+      "price": 9000.00,
+      "quantity": 20,
+      "image": "/static/images/tiramisu.jpg",
+      "is_available": true,
+      "categories": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 7,
+    "fields": {
+      "name": "Brownie con Helado",
+      "title": "Brownie con Helado",
+      "description": "Brownie casero, caliente y fudgy, acompañado de una generosa porción de helado de vainilla.",
+      "price": 8500.00,
+      "quantity": 15,
+      "image": "/static/images/brownie.jpg",
+      "is_available": true,
+      "categories": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 8,
+    "fields": {
+      "name": "Whisky",
+      "title": "Whisky",
+      "description": "Whisky escocés de malta, envejecido en barricas de roble.",
+      "price": 15000.00,
+      "quantity": 15,
+      "image": "/static/images/Vaso-Whisky.jpg",
+      "is_available": true,
+      "categories": [
+        4
+      ]
+    }
+  }
+]
