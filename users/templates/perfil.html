@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Bienvenido, {{ usuario.get_full_name|default:usuario.username }}</h2>
+
+    <p>Correo: {{ usuario.email }}</p>
+
+    <h4 class="mt-4">Reservas en curso</h4>
+    {% if reservas_en_curso %}
+        <ul class="list-group mb-4">
+            {% for reserva in reservas_en_curso %}
+                <li class="list-group-item">
+                    <strong>Mesa:</strong> {{ reserva.table.description }}<br>
+                    <strong>Horario de reserva:</strong> {{ reserva.timeslot.start|date:"d/m/Y H:i" }} - {{ reserva.timeslot.end|date:"H:i" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes reservas en curso.</p>
+    {% endif %}
+
+    <h4 class="mt-4">Historial de reservas</h4>
+    {% if reservas_historicas %}
+        <ul class="list-group mb-4">
+            {% for reserva in reservas_historicas %}
+                <li class="list-group-item">
+                    <strong>Mesa:</strong> {{ reserva.table.description }}<br>
+                    <strong>Horario de reserva:</strong> {{ reserva.timeslot.start|date:"d/m/Y H:i" }} - {{ reserva.timeslot.end|date:"H:i" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes reservas anteriores.</p>
+    {% endif %}
+</div>
+{% endblock %}
