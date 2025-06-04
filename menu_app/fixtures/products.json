@@ -1,7 +1,7 @@
 [
   {
     "model": "menu_app.product",
-    "pk": 5,
+    "pk": 1,
     "fields": {
       "name": "Pizza Pepperoni",
       "title": "Pizza Pepperoni",
@@ -17,7 +17,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 4,
+    "pk": 2,
     "fields": {
       "name": "Pizza Fugazzeta",
       "title": "Pizza Fugazzeta",
@@ -33,7 +33,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 2,
+    "pk": 3,
     "fields": {
       "name": "Ensalada César",
       "title": "Ensalada César",
@@ -49,7 +49,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 3,
+    "pk": 4,
     "fields": {
       "name": "Milanesa de ternera",
       "title": "Milanesa de ternera",
@@ -65,7 +65,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 6,
+    "pk": 5,
     "fields": {
       "name": "Tiramisu",
       "title": "Tiramisu",
@@ -81,7 +81,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 7,
+    "pk": 6,
     "fields": {
       "name": "Brownie con Helado",
       "title": "Brownie con Helado",
@@ -97,7 +97,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 8,
+    "pk": 7,
     "fields": {
       "name": "Whisky",
       "title": "Whisky",
@@ -113,7 +113,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 9,
+    "pk": 8,
     "fields": {
       "name": "Mojito",
       "title": "Mojito",
@@ -129,7 +129,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 10,
+    "pk": 9,
     "fields": {
       "name": "Gin-Tonic",
       "title": "Gin-Tonic",
@@ -145,7 +145,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 11,
+    "pk": 10,
     "fields": {
       "name": "Coca Cola Vidrio",
       "title": "Coca Cola Vidrio",
@@ -161,7 +161,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 12,
+    "pk": 11,
     "fields": {
       "name": "Café con Leche",
       "title": "Café con Leche",
@@ -177,7 +177,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 13,
+    "pk": 12,
     "fields": {
       "name": "Torta Matilda",
       "title": "Torta Matilda",
@@ -193,7 +193,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 14,
+    "pk": 13,
     "fields": {
       "name": "Macarons",
       "title": "Macarons",
@@ -209,7 +209,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 15,
+    "pk": 14,
     "fields": {
       "name": "Crema de tomate asados",
       "title": "Crema de tomate asados",
@@ -225,7 +225,7 @@
   },
   {
     "model": "menu_app.product",
-    "pk": 16,
+    "pk": 15,
     "fields": {
       "name": "Pastelitos de chocolate blanco y queso con fresas",
       "title": "Pastelitos de chocolate blanco y queso con fresas",
