@@ -23,7 +23,6 @@ def my_reservations(request):
 def some_shared_view(request):
     # Para admin y cajeros
     return render(request, 'shared/view.html')
-# Create your views here.
 
 @client_required
 def perfil_usuario(request):
