@@ -1,22 +1,6 @@
 [
   {
     "model": "menu_app.product",
-    "pk": 1,
-    "fields": {
-      "name": "Pizza Margherita",
-      "title": "Pizza Margherita",
-      "description": "Pizza napolitana clásica hecha con tomate, mozzarella y albahaca fresca",
-      "price": 20000.00,
-      "quantity": 5,
-      "image": "/static/images/pizza_margherita.jpg",
-      "is_available": true,
-      "categories": [
-        2
-      ]
-    }
-  },
-  {
-    "model": "menu_app.product",
     "pk": 5,
     "fields": {
       "name": "Pizza Pepperoni",
@@ -67,12 +51,12 @@
     "model": "menu_app.product",
     "pk": 3,
     "fields": {
-      "name": "Hamburguesa Clásica",
-      "title": "Hamburguesa Clásica",
-      "description": "Hamburguesa con carne de res, lechuga, tomate y mayonesa.",
-      "price": 13000.00,
+      "name": "Milanesa de ternera",
+      "title": "Milanesa de ternera",
+      "description": "La milanesa de ternera es un plato clásico argentino que consiste en una pieza de carne de ternera empanada y frita, servida con limón y papas rústicas.",
+      "price": 20000.00,
       "quantity": 15,
-      "image": "/static/images/hamburguesa.jpg",
+      "image": "/static/images/milanesa.jpg",
       "is_available": true,
       "categories": [
         2
@@ -236,6 +220,22 @@
       "is_available": true,
       "categories": [
         1
+      ]
+    }
+  },
+  {
+    "model": "menu_app.product",
+    "pk": 16,
+    "fields": {
+      "name": "Pastelitos de chocolate blanco y queso con fresas",
+      "title": "Pastelitos de chocolate blanco y queso con fresas",
+      "description": "Deliciosos pastelitos rellenos de chocolate blanco y queso, cubiertos con fresas frescas.",
+      "price": 8000.00,
+      "quantity": 15,
+      "image": "/static/images/pastelito.jpg",
+      "is_available": true,
+      "categories": [
+        3
       ]
     }
   }
