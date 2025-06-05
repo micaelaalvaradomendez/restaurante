@@ -17,7 +17,7 @@ class HomePageDisplayTest(BaseE2ETest):
         expect(logo).to_have_attribute("href", "/menu/")
 
         # Verificar textos principales de la página
-        expect(self.page.get_by_text("Restaurant App")).to_be_visible()
+        expect(self.page.get_by_text("Femme-faim Restó")).to_be_visible()
         expect(
             self.page.get_by_text("Hacé tus pedidos y reservá mesas.")
         ).to_be_visible()
