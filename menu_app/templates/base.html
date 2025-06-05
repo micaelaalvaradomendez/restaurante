@@ -1,5 +1,5 @@
 {% load navbar_link %}
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,7 +23,11 @@
 <body>
     <nav class="navbar navbar-expand-md bg-body-tertiary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Femme-faim Restó</a>
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="{% static 'images/resto/logo_resto.png' %}" alt="Logo" height="40" class="me-2"
+                    style="object-fit:contain;">
+                <span>Femme-faim Restó</span>
+            </a>
 
             <div class="hstack gap-2">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content"
