@@ -6,8 +6,12 @@
 {% block content %}
 <div class="container mt-4">
     <!-- Carousel de productos -->
-    <div id="productosCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="3000">
+    <div id="productosCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="2500">
         <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'images/resto/logo_resto.png' %}" class="d-block w-100"
+                    style="height:350px; object-fit:contain;" alt="logo_resto">
+            </div>
             <div class="carousel-item active">
                 <img src="{% static 'images/resto/primera.png' %}" class="d-block w-100"
                     style="height:350px; object-fit:cover;" alt="Producto 1">
@@ -33,7 +37,7 @@
     </div>
 
     <div class="p-5 bg-light rounded-3 text-center">
-        <h1 class="display-5 fw-bold">Femme-faim Restó</h1>
+        <h1 class="display-4">¡Bienvenido a Femme-faim Restó!</h1>
         <p class="fs-4">Hacé tus pedidos y reservá mesas.</p>
         <div class="row justify-content-center mt-4">
             <div class="col-md-4">
