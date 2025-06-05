@@ -6,35 +6,28 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Restaurant{% endblock %}</title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    >
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    />
+    <style>
+        body {
+            padding-top: 70px;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md bg-body-tertiary">
+    <nav class="navbar navbar-expand-md bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Femme-faim Restó</a>
 
             <div class="hstack gap-2">
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbar-content"
-                    aria-controls="navbar-content"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content"
+                    aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -51,29 +44,29 @@
                         </li>
                         {% endif %}
                     </ul>
-                
+
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'perfil' %}">
-                                    <i class="bi bi-person-fill me-1"></i>
-                                    Mi Perfil
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <form method="post" action="{% url 'logout' %}" style="display:inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-link nav-link" style="display: inline;">
-                                        Cerrar sesión
-                                    </button>
-                                </form>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'perfil' %}">
+                                <i class="bi bi-person-fill me-1"></i>
+                                Mi Perfil
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link" style="display: inline;">
+                                    Cerrar sesión
+                                </button>
+                            </form>
+                        </li>
                         {% else %}
-                            <li class="nav-item">
-                                {% navbar_link 'login' 'Iniciar sesión' %}
-                            </li>
+                        <li class="nav-item">
+                            {% navbar_link 'login' 'Iniciar sesión' %}
+                        </li>
                         {% endif %}
-                    </ul>                        
+                    </ul>
                 </div>
             </div>
         </div>
@@ -82,10 +75,9 @@
     {% block content %}
     {% endblock %}
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"
-    ></script>
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
