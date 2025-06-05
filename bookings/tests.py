@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from bookings.models import TimeSlot, Table, TableTimeSlot, Booking
 
+print("Iniciando test del modelo bookings...")
 User = get_user_model()
 
 class BookingModelsTest(TestCase):
@@ -70,3 +71,8 @@ class BookingModelsTest(TestCase):
                 timeslot=self.timeslot,
                 is_reserved=False
             )
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        print("\n Finalizaron los tests del modelo bookings.")

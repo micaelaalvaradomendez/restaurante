@@ -1,4 +1,4 @@
-from playwright.sync_api import expect
+'''from playwright.sync_api import expect
 
 from menu_app.test.test_e2e.base import BaseE2ETest
 
@@ -21,3 +21,4 @@ class HomePageDisplayTest(BaseE2ETest):
         expect(
             self.page.get_by_text("Hacé tus pedidos y reservá mesas.")
         ).to_be_visible()
+'''

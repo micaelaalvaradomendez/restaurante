@@ -19,7 +19,7 @@ class Order(models.Model):
     state = models.CharField(max_length=20, choices=STATES, default='PREPARACION')
     products = models.ManyToManyField(Product, through='OrderItem')
 
-    def _str_(self):
+    def __str__(self):
         return f"Pedido #{self.code}"
 
 class OrderItem(models.Model):
@@ -28,5 +28,5 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
     price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def _str_(self):
-        return f"{self.quantity}x {self.product.title} en {self.order.code}"
+    def __str__(self):
+        return f"{self.quantity}x {self.product.name} en {self.order.code}"

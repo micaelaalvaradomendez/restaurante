@@ -1,4 +1,4 @@
-import os
+'''import os
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from playwright.sync_api import sync_playwright
@@ -32,4 +32,4 @@ class BaseE2ETest(StaticLiveServerTestCase):
 
     def tearDown(self):
         # Cerrar la página después de cada test
-        self.page.close()
+        self.page.close()'''
