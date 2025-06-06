@@ -5,6 +5,7 @@
     <h2 class="mb-4">Bienvenido, {{ usuario.get_full_name|default:usuario.username }}</h2>
 
     <p>Correo: {{ usuario.email }}</p>
+    <p>Ultima conexión: {{ usuario.last_login|date:"d/m/Y H:i" }}</p>
 
     <h4 class="mt-4">Reservas en curso</h4>
     {% if reservas_en_curso %}

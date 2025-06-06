@@ -1,0 +1,34 @@
+{% extends "custom_admin/base.html" %}
+
+{% block content %}
+<div class="bookings-list">
+    <h2>Gestión de Reservas</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Usuario</th>
+                <th>Mesa</th>
+                <th>Franja Horaria</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.code }}</td>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.table }}</td>
+                <td>{{ booking.timeslot }}</td>
+                <td>{% if booking.is_approved %}Aprobada{% else %}Pendiente{% endif %}</td>
+                <td>
+                    <a href="#" class="button">Detalles</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

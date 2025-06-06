@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,16 +28,13 @@ urlpatterns = [
     path("users/", include("users.urls")),
     path("notifications/", include("notifications.urls")),
     path('usuario/', include('users.urls')),
+    path('admin/', admin.site.urls),
+    path('custom-admin/', include('admin_custom.urls')),
+    path('logout/', LogoutView.as_view(next_page='/custom-admin/'), name='logout'),
 
     # login/logout de Django
     path('login/', auth_views.LoginView.as_view(
         template_name='login.html',
         redirect_authenticated_user=True
-    ), name='login'),
-    
-    path('logout/', auth_views.LogoutView.as_view(
-        next_page='home'
-    ), name='logout'),
-    path('admin-custom/', include('admin_custom.urls'))
+    ), name='login'),    
 ]
- 
