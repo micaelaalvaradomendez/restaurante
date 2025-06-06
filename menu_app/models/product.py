@@ -12,9 +12,9 @@ class Product(models.Model):
     is_available = models.BooleanField(default=True)
     
     def __str__(self):
-        return self.name or self.title
         # devuelve el nombre si existe, y sino el titulo
-
+        return self.title if self.title else self.name
+        
     @classmethod
     def validate(cls, name, description, price):
         errors = {}

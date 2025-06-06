@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.db.utils import IntegrityError
 from django.db import IntegrityError
 
+print("Iniciando test del modelo usuarios...")
+
 User = get_user_model()
 
 class UserModelTests(TestCase):
@@ -48,4 +50,7 @@ class UserModelTests(TestCase):
         user = User.objects.create_user(username='pedro123', email='pedro@restaurante.com', rol='CAJERO', password='pass123')
         self.assertEqual(str(user), "pedro123 (Cajero)")
 
- 
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        print("\n Finalizaron los tests del modelo usuarios.")
