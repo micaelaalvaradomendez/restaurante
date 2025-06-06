@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'orders',
     'users',
     'notifications',
-    'rest_framework'
+    'rest_framework',
+    'admin_custom',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom user model
 AUTH_USER_MODEL = 'users.User'
+
+# Configuración para archivos estáticos
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'admin_custom/static'),
+]
+
+# Configuración de autenticación
+LOGIN_URL = '/admin/login/'
+# AUTH_USER_MODEL = 'restaurante.User'

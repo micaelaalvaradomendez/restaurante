@@ -1,0 +1,52 @@
+{% extends "custom_admin/base.html" %}
+
+{% block content %}
+<h2>Reservas</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Mesa</th>
+            <th>Horario</th>
+            <th>Aprobada</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.user }}</td>
+            <td>{{ booking.table }}</td>
+            <td>{{ booking.timeslot }}</td>
+            <td>
+                {% if booking.is_approved %}
+                    <span class="badge bg-success">Sí</span>
+                {% else %}
+                    <span class="badge bg-secondary">No</span>
+                {% endif %}
+            </td>
+            <td>{{ booking.observations }}</td>
+            <td>
+                {% if not booking.is_approved %}
+                <form method="post" action="{% url 'custom_admin:approve_booking' booking.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success btn-sm">Aprobar</button>
+                </form>
+                {% endif %}
+                <form method="post" action="{% url 'custom_admin:reject_booking' booking.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center">No hay reservas.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

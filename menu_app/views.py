@@ -2,9 +2,7 @@
 from .views.home_view import HomeView
 from .views.menu_list_view import MenuListView
 from .views.product_detail_view import ProductDetailView
-from django.shortcuts import render
-from .models.category import Category
-from .models.product import Product
 
-# Exportamos todas las clases para mantener compatibilidad con el código existente
-__all__ = ['HomeView', 'MenuListView', 'ProductDetailView','menu_por_categorias']
+# from .views.menu_por_categorias import menu_por_categorias
+
+__all__ = ['HomeView', 'MenuListView', 'ProductDetailView']  # Agrega 'menu_por_categorias' solo si la importas
