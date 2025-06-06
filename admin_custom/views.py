@@ -17,7 +17,7 @@ class StaffRequiredMixin(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.rol in ['ADMIN', 'CAJERO']
 
-class AdminDashboardView(StaffRequiredMixin, TemplateView):
+class AdminDashboardView(LoginRequiredMixin, StaffRequiredMixin, TemplateView):
     template_name = 'custom_admin/dashboard.html'
 
     def get_context_data(self, **kwargs):

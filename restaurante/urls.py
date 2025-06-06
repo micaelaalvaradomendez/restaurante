@@ -30,7 +30,7 @@ urlpatterns = [
     path('usuario/', include('users.urls')),
     path('admin/', admin.site.urls),
     path('custom-admin/', include('admin_custom.urls')),
-    path('logout/', LogoutView.as_view(next_page='/custom-admin/'), name='logout'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
 
     # login/logout de Django
     path('login/', auth_views.LoginView.as_view(
