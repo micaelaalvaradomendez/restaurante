@@ -1,0 +1,39 @@
+{% extends "custom_admin/base.html" %}
+{% block content %}
+<h1>Detalles del Pedido</h1>
+<p><strong>ID del Pedido:</strong> {{ order.id }}</p>
+<p><strong>Código:</strong> {{ order.code }}</p>
+<p><strong>Estado:</strong> {{ order.state }}</p>
+<p><strong>Cliente:</strong> {{ order.user.username }}</p>
+<p><strong>Fecha de Compra:</strong> {{ order.buy_date|date:"d/m/Y H:i" }}</p>
+
+<h2>Productos</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order.orderitem_set.all %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>${{ item.price_at_purchase }}</td>
+            <td>${{ item.quantity|floatformat:0|add:"0"|floatformat:0|floatformat:0|add:item.price_at_purchase|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">No hay productos en este pedido.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p><strong>Total del pedido:</strong> ${{ order.amount }}</p>
+
+<a href="{% url 'custom_admin:order_list' %}" class="btn btn-secondary">Volver a la lista de pedidos</a>
+{% endblock %}

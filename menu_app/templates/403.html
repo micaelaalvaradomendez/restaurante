@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="alert alert-danger mt-5 text-center">
+    <h2>Acceso denegado</h2>
+    <p>Su usuario no tiene permiso para acceder a esta sección.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-3">Ir al inicio</a>
+</div>
+{% endblock %}
