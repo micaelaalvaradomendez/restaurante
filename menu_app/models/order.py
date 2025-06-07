@@ -1,10 +1,10 @@
 # filepath: c:\Users\Frers\OneDrive\Escritorio\Restaurante2\restaurante\menu_app\models\order.py
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 from .product import Product
 
 class Pedido(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now_add=True)
     confirmado = models.BooleanField(default=False)
 
