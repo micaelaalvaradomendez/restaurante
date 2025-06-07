@@ -1,0 +1,10 @@
+{% extends "custom_admin/base.html" %}
+{% block content %}
+<h2>Eliminar Producto</h2>
+<p>¿Estás seguro de que deseas eliminar el producto "{{ object }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'custom_admin:product_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

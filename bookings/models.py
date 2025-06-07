@@ -11,12 +11,16 @@ class TimeSlot(models.Model):
         return f"{self.start} - {self.end}"
 
 class Table(models.Model):
-    capacity = models.IntegerField()
-    description = models.CharField(max_length=200)
-    time_slots = models.ManyToManyField(TimeSlot, through='TableTimeSlot')
+    capacity = models.IntegerField(verbose_name="Capacidad")
+    description = models.CharField(max_length=200, verbose_name="Descripción")
+    time_slots = models.ManyToManyField(TimeSlot, through='TableTimeSlot', verbose_name="Horarios")
 
     def __str__(self):
         return f"Mesa #{self.id} (Capacidad: {self.capacity})"
+
+    def is_available(self):
+        # Devuelve True si hay al menos un timeslot no reservado
+        return self.tabletimeslot_set.filter(is_reserved=False).exists()
 
 class TableTimeSlot(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE)

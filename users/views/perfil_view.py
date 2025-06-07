@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from bookings.models import Booking
 
+## Pasar a Class Based View 
 @login_required
 def perfil_view(request):
     usuario = request.user
