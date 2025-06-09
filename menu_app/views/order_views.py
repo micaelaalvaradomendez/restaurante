@@ -14,7 +14,7 @@ def agregar_al_carrito(request, producto_id):
 def ver_carrito(request):
     carrito = request.session.get('carrito', {})
     productos = Product.objects.filter(id__in=carrito.keys())
-    return render(request, 'carrito.html', {'productos': productos, 'carrito': carrito})
+    return render(request, 'menu/carrito.html', {'productos': productos, 'carrito': carrito})
 
 @login_required
 def confirmar_pedido(request):
@@ -28,4 +28,9 @@ def confirmar_pedido(request):
     pedido.confirmado = True
     pedido.save()
     request.session['carrito'] = {}
-    return render(request, 'pedido_confirmado.html')
+    return render(request, 'menu/pedido_confirmado.html')
+
+@login_required
+def mis_pedidos(request):
+    pedidos = Pedido.objects.filter(usuario=request.user).order_by('-fecha')
+    return render(request, 'menu/mis_pedidos.html', {'pedidos': pedidos})

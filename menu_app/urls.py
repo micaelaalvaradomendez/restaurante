@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomeView, MenuListView, ProductDetailView, menu_por_categorias, agregar_al_carrito, ver_carrito, confirmar_pedido
+from .views import HomeView, MenuListView, ProductDetailView, menu_por_categorias, agregar_al_carrito, ver_carrito, confirmar_pedido, mis_pedidos
 from django.contrib import admin
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path('agregar/<int:producto_id>/', agregar_al_carrito, name='agregar_al_carrito'),
     path('carrito/', ver_carrito, name='ver_carrito'),
     path('confirmar/', confirmar_pedido, name='confirmar_pedido'),
+    path('mis-pedidos/', mis_pedidos, name='mis_pedidos'),
 
-]  
+]
