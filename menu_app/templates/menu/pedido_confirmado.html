@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="alert alert-success mt-4">
+        <h2>¡Pedido confirmado!</h2>
+        <p>Tu pedido ha sido registrado correctamente. Pronto nos pondremos en contacto.</p>
+    </div>
+    <a href="{% url 'menu_por_categorias' %}" class="btn btn-primary">Volver al menú</a>
+</div>
+{% endblock %}

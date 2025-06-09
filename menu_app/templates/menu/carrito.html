@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load carrito_extras %}
+{% block content %}
+<div class="container my-5">
+    <h2>Tu pedido</h2>
+    {% if productos %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto.name }}</td>
+                <td>{{ carrito|get_item:producto.id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form method="post" action="{% url 'confirmar_pedido' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Confirmar pedido</button>
+    </form>
+    {% else %}
+    <p>No hay productos en tu pedido.</p>
+    {% endif %}
+    <a href="{% url 'menu_por_categorias' %}" class="btn btn-secondary mt-3">Volver al menú</a>
+</div>
+{% endblock %}
