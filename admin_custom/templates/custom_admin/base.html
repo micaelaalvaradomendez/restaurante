@@ -35,7 +35,12 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'custom_admin:order_list' %}">Pedidos</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'custom_admin:product_list' %}">Productos</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'custom_admin:table_management' %}">Mesas</a></li>
-                    <li class="nav-item"><a class="nav-link text-warning" href="{% url 'logout' %}">Salir</a></li>
+                    <li class="nav-item"> <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link nav-link" style="display: inline;">
+                            Salir
+                        </button>
+                    </form></li>
                 </ul>
             </div>
         </div>
