@@ -144,5 +144,5 @@ STATICFILES_DIRS = [
 ]
 
 # Configuración de autenticación
-LOGIN_URL = '/admin/login/'
+LOGIN_URL = '/login/'
 # AUTH_USER_MODEL = 'restaurante.User'
