@@ -19,10 +19,18 @@
                     <p class="card-text">{{ producto.description }}</p>
                     <p class="card-text"><strong>${{ producto.price }}</strong></p>
                     <a href="{% url 'product_detail' producto.id %}" class="btn btn-primary mb-2">Ver más</a>
+                    {% if user.is_authenticated %}
+                    {% if producto.is_available %}
                     <form method="post" action="{% url 'agregar_al_carrito' producto.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-success">Agregar al pedido</button>
                     </form>
+                    {% else %}
+                    <button class="btn btn-secondary" disabled>No disponible</button>
+                    {% endif %}
+                    {% else %}
+                    <a href="{% url 'login' %}?next={% url 'menu_por_categorias' %}" class="btn btn-success">Agregar al pedido</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
