@@ -10,7 +10,7 @@ class Order(models.Model):
         ('ENVIADO', 'Enviado'),
         ('RETIRADO', 'Retirado'),
         ('CANCELADO', 'Cancelado'),
-    ]
+    ] 
     
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=20, unique=True)
