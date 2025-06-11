@@ -37,5 +37,5 @@ class ManejaPedido(LoginRequiredMixin):
         return render(request, 'menu/pedido_confirmado.html')
 
     def mis_pedidos(request):
-        pedidos = Order.objects.filter(user=request.user).order_by('-fecha')
+        pedidos = Order.objects.filter(user=request.user).order_by('-buy_date')
         return render(request, 'menu/mis_pedidos.html', {'pedidos': pedidos})
