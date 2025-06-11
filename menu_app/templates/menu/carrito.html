@@ -9,6 +9,7 @@
             <tr>
                 <th>Producto</th>
                 <th>Cantidad</th>
+                <th>Precio</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
             <tr>
                 <td>{{ producto.name }}</td>
                 <td>{{ carrito|get_item:producto.id }}</td>
+                <td>${{ producto.price}}</td>
             </tr>
             {% endfor %}
         </tbody>
