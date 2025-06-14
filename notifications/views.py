@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Notification, NotificationStatus
 from .serializers import NotificationSerializer, NotificationStatusSerializer
 from .permissions import IsAdminOrReadOnly, IsOwnerOrAdminForStatus
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
@@ -32,17 +33,18 @@ class NotificationStatusViewSet(viewsets.ModelViewSet):
         if instance.user != self.request.user and not self.request.user.is_staff:
             raise PermissionDenied("No tienes permiso para modificar este estado")
         serializer.save()
-        
-@login_required
-def lista_notificaciones(request):
-    notificaciones_estado_lista = NotificationStatus.objects.filter(user=request.user)
-    return render(request, 'notifications/notifications.html', {
-        'notificaciones_estado_lista': notificaciones_estado_lista
-    })
-@login_required
-def marcar_leida(request, pk):
-    estado = get_object_or_404(NotificationStatus, pk=pk, user=request.user)
-    if request.method ==  'POST':
-        estado.is_read = True
-        estado.save()
-    return redirect('mis_notificaciones')
+
+class NotisUsuario(LoginRequiredMixin):
+
+    def lista_notificaciones(request):
+        notificaciones_estado_lista = NotificationStatus.objects.filter(user=request.user)
+        return render(request, 'notifications/notifications.html', {
+            'notificaciones_estado_lista': notificaciones_estado_lista
+        })
+
+    def marcar_leida(request, pk):
+        estado = get_object_or_404(NotificationStatus, pk=pk, user=request.user)
+        if request.method ==  'POST':
+            estado.is_read = True
+            estado.save()
+        return redirect('mis_notificaciones')
