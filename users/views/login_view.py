@@ -7,7 +7,7 @@ def login_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # o donde quieras redirigir luego de registrar
+            return redirect('login') 
     else:
         form = UserCreationForm()
     return render(request, 'login.html', {'form': form})

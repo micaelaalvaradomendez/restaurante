@@ -34,5 +34,35 @@
     {% else %}
         <p>No tienes reservas anteriores.</p>
     {% endif %}
+
+    <h4 class="mt-4">Mis calificaciones</h4>
+    {% if calificaciones %}
+        <ul class="list-group mb-4">
+            {% for rating in calificaciones %}
+                <li class="list-group-item">
+                    <strong>{{ rating.product.name }}</strong>: {{ rating.rating }}/5<br>
+                    <em>{{ rating.title }}</em> - {{ rating.text }}<br>
+                    <a href="{% url 'editar_calificacion' rating.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'eliminar_calificacion' rating.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No has calificado ningún producto aún.</p>
+    {% endif %}
+
+    <h4 class="mt-4">Productos para calificar</h4>
+    {% if productos_para_calificar %}
+        <ul class="list-group mb-4">
+            {% for producto in productos_para_calificar %}
+                <li class="list-group-item">
+                    <strong>{{ producto.name }}</strong>
+                    <a href="{% url 'calificar_producto' producto.id %}" class="btn btn-sm btn-success ms-2">Calificar</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes productos pendientes de calificar.</p>
+    {% endif %}
 </div>
 {% endblock %}

@@ -5,7 +5,6 @@ from .product_detail_view import ProductDetailView
 from .menu_por_categorias import MenuPorCategoriasView
 from orders.views import ManejaPedido
 
-
 __all__ = [
         'HomeView', 
         'MenuListView', 
@@ -15,5 +14,7 @@ __all__ = [
         'ver_carrito',
         'confirmar_pedido',
         'mis_pedidos',
+        'calificar_producto',
+        'ver_calificaciones',
 ]
 
