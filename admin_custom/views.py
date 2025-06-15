@@ -124,6 +124,6 @@ class OrderDetailView(LoginRequiredMixin, StaffRequiredMixin, DetailView):
 @login_required
 def order_update_state(request, pk):
     order = get_object_or_404(Order, pk=pk)
-    order.state = 'ENTREGADO'
+    order.state = 'ENVIADO'
     order.save()
     return redirect('custom_admin:order_list')
