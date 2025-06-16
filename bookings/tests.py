@@ -72,6 +72,22 @@ class BookingModelsTest(TestCase):
                 is_reserved=False
             )
 
+    # Verifica que no se pueda crear una reserva duplicada para la misma mesa y horario
+    def test_no_reserva_duplicada_misma_mesa_horario(self):
+        Booking.objects.create(
+            user=self.user,
+            table=self.table,
+            timeslot=self.timeslot,
+            code="UNICO1"
+        )
+        with self.assertRaises(Exception):
+            Booking.objects.create(
+                user=self.user,
+                table=self.table,
+                timeslot=self.timeslot,
+                code="UNICO2"
+            )
+
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()

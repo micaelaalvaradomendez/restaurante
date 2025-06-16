@@ -1,31 +1,22 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from users.decorators import admin_required, cashier_required, client_required, admin_or_cashier_required, role_required
+from users.mixins import ClientRequiredMixin, AdminRequiredMixin, AdminOrCashierRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
+from .mixins import ClientRequiredMixin, AdminRequiredMixin  
 
-@admin_required
-def admin_dashboard(request):
-    # Solo para administradores
-    return render(request, 'admin/dashboard.html')
+class ClientRequired(ClientRequiredMixin):
+    def my_reservations(request):
+        return render(request, 'reservations/my_reservations.html')
+    
+    def perfil_usuario(request):
+        return render(request, 'perfil.html', {'usuario': request.user})
 
-@admin_or_cashier_required
-def manage_orders(request):
-    # Para administradores y cajeros
-    return render(request, 'orders/manage.html')
+class AdminRequired(AdminRequiredMixin):
+    def admin_dashboard(request):
+        return render(request, 'admin/dashboard.html')
 
-@client_required
-def my_reservations(request):
-    # Solo para clientes
-    return render(request, 'reservations/my_reservations.html')
+class AdminOrCashierRequired(AdminOrCashierRequiredMixin):
+    def manage_orders(request):
+        return render(request, 'orders/manage.html')
 
-# O usando el decorador genérico:
-@role_required('ADMIN', 'CAJERO')
-def some_shared_view(request):
-    # Para admin y cajeros
-    return render(request, 'shared/view.html')
-
-@client_required
-def perfil_usuario(request):
-    return render(request, 'perfil.html', {
-        'usuario': request.user
-    })
+    def some_shared_view(request):
+        return render(request, 'shared/view.html')

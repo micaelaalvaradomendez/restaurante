@@ -234,6 +234,22 @@ class OrderModelTest(TestCase):
         expected_categories = {"Pizzas", "Ensaladas", "Bebidas", "Postres"}
         self.assertSetEqual(categories_in_order, expected_categories)
 
+    def test_order_code_unique(self):
+        # Verifica que el código de pedido sea único
+        with self.assertRaises(Exception):
+            Order.objects.create(
+                user=self.user,
+                code="PEDIDO001",  # ya existe
+                amount=Decimal('10000.00')
+            )
+
+    # Test de elminacion en cascada
+    def test_orderitem_deleted_with_order(self):
+        # Verifica que al eliminar un pedido, también se eliminen sus items
+        order_id = self.order.id
+        self.order.delete()
+        self.assertFalse(OrderItem.objects.filter(order_id=order_id).exists())
+
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()

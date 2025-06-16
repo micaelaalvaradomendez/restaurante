@@ -21,18 +21,68 @@
         <p>No tienes reservas en curso.</p>
     {% endif %}
 
+    <h4 class="mt-4">Reservas pendientes</h4>
+    {% if reservas_pendientes %}
+        <ul class="list-group mb-4">
+            {% for reserva in reservas_pendientes %}
+                <li class="list-group-item">
+                    <strong>Mesa:</strong> {{ reserva.table.description }}<br>
+                    <strong>Horario:</strong> {{ reserva.timeslot.start|date:"d/m/Y H:i" }} - {{ reserva.timeslot.end|date:"H:i" }}
+                    {% if not reserva.is_approved %}
+                        <span class="badge bg-warning">Pendiente de confirmación</span>
+                    {% else %}
+                        <span class="badge bg-info">Confirmada para el futuro</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes reservas pendientes.</p>
+    {% endif %}
+
     <h4 class="mt-4">Historial de reservas</h4>
     {% if reservas_historicas %}
         <ul class="list-group mb-4">
             {% for reserva in reservas_historicas %}
                 <li class="list-group-item">
                     <strong>Mesa:</strong> {{ reserva.table.description }}<br>
-                    <strong>Horario de reserva:</strong> {{ reserva.timeslot.start|date:"d/m/Y H:i" }} - {{ reserva.timeslot.end|date:"H:i" }}
+                    <strong>Horario:</strong> {{ reserva.timeslot.start|date:"d/m/Y H:i" }} - {{ reserva.timeslot.end|date:"H:i" }}
+                    <span class="badge bg-success">Finalizada</span>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
         <p>No tienes reservas anteriores.</p>
+    {% endif %}
+
+    <h4 class="mt-4">Mis calificaciones</h4>
+    {% if calificaciones %}
+        <ul class="list-group mb-4">
+            {% for rating in calificaciones %}
+                <li class="list-group-item">
+                    <strong>{{ rating.product.name }}</strong>: {{ rating.rating }}/5<br>
+                    <em>{{ rating.title }}</em> - {{ rating.text }}<br>
+                    <a href="{% url 'editar_calificacion' rating.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'eliminar_calificacion' rating.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No has calificado ningún producto aún.</p>
+    {% endif %}
+
+    <h4 class="mt-4">Productos para calificar</h4>
+    {% if productos_para_calificar %}
+        <ul class="list-group mb-4">
+            {% for producto in productos_para_calificar %}
+                <li class="list-group-item">
+                    <strong>{{ producto.name }}</strong>
+                    <a href="{% url 'calificar_producto' producto.id %}" class="btn btn-sm btn-success ms-2">Calificar</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes productos pendientes de calificar.</p>
     {% endif %}
 </div>
 {% endblock %}

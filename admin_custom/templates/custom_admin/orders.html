@@ -23,7 +23,7 @@
             <td>${{ order.amount }}</td>
             <td>
                 <a href="{% url 'custom_admin:order_detail' order.id %}" class="btn btn-sm btn-info">Ver</a>
-                {% if order.state != 'ENTREGADO' %}
+                {% if order.state != 'ENVIADO' %}
                 <form method="post" action="{% url 'custom_admin:order_update_state' order.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-sm btn-success">Marcar como entregado</button>

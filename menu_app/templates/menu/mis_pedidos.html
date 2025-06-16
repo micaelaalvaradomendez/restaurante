@@ -6,15 +6,17 @@
     <ul class="list-group">
         {% for pedido in pedidos %}
         <li class="list-group-item">
-            <strong>Pedido #{{ pedido.id }}</strong> - {{ pedido.fecha|date:"d/m/Y H:i" }}
-            {% if pedido.confirmado %}
-            <span class="badge bg-success">Confirmado</span>
-            {% else %}
-            <span class="badge bg-warning">Pendiente</span>
+            <strong>Pedido #{{ pedido.id }}</strong> - {{ pedido.buy_date|date:"d/m/Y H:i" }}
+            {% if pedido.state == "RETIRADO" or pedido.state == "ENVIADO" %}
+                <span class="badge bg-success">Entregado</span>
+            {% elif pedido.state == "CANCELADO" %}
+                <span class="badge bg-danger">Cancelado</span>
+            {% elif pedido.state == "PREPARACION" %}
+                <span class="badge bg-warning">Pendiente</span>
             {% endif %}
             <ul>
-                {% for item in pedido.items.all %}
-                <li>{{ item.producto.name }} x {{ item.cantidad }}</li>
+                {% for item in pedido.orderitem_set.all %}
+                <li>{{ item.product.name }} x {{ item.quantity }}</li>
                 {% endfor %}
             </ul>
         </li>
