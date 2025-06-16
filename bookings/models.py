@@ -8,7 +8,8 @@ class TimeSlot(models.Model):
     end = models.DateTimeField()
 
     def __str__(self):
-        return f"{self.start} - {self.end}"
+        # Ejemplo: 01/06/2025 20:00 - 21:00
+        return f"{self.start.strftime('%d/%m/%Y %H:%M')} - {self.end.strftime('%H:%M')}"
 
 class Table(models.Model):
     capacity = models.IntegerField(verbose_name="Capacidad")
