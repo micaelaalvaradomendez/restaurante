@@ -1,3 +1,4 @@
+from django.views import View
 from django.views.generic import TemplateView, ListView, UpdateView, DeleteView, CreateView, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from menu_app.models import Product, Category
@@ -5,11 +6,9 @@ from bookings.models import Booking, Table
 from orders.models import Order
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .mixins import StaffRequiredMixin
-
+from django.views.generic import CreateView, UpdateView, DeleteView
 class AdminRequiredMixin(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.rol == 'ADMIN'
@@ -79,24 +78,20 @@ class TableCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
     template_name = 'custom_admin/table_form.html'
     success_url = reverse_lazy('custom_admin:table_management')
 
-@login_required
-@require_POST
-def approve_booking(request, pk):
-    booking = get_object_or_404(Booking, pk=pk)
-    booking.is_approved = True
-    booking.save()
-    return redirect('custom_admin:booking_list')
 
-@login_required
-@require_POST
-def reject_booking(request, pk):
-    booking = get_object_or_404(Booking, pk=pk)
-    booking.is_approved = False
-    booking.save()
-    return redirect('custom_admin:booking_list')
+class BookingApproveView(LoginRequiredMixin, StaffRequiredMixin, View):
+    def post(self, request, pk):
+        booking = get_object_or_404(Booking, pk=pk)
+        booking.is_approved = True
+        booking.save()
+        return redirect('custom_admin:booking_list')
 
-from django.views.generic import CreateView, UpdateView, DeleteView
-from menu_app.models import Product
+class BookingRejectView(LoginRequiredMixin, StaffRequiredMixin, View):
+    def post(self, request, pk):
+        booking = get_object_or_404(Booking, pk=pk)
+        booking.is_approved = False
+        booking.save()
+        return redirect('custom_admin:booking_list')
 
 class ProductCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
     model = Product
@@ -120,10 +115,9 @@ class OrderDetailView(LoginRequiredMixin, StaffRequiredMixin, DetailView):
     template_name = 'custom_admin/order_detail.html'
     context_object_name = 'order'
 
-@require_POST
-@login_required
-def order_update_state(request, pk):
-    order = get_object_or_404(Order, pk=pk)
-    order.state = 'ENVIADO'
-    order.save()
-    return redirect('custom_admin:order_list')
+class OrderUpdateStateView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        order = get_object_or_404(Order, pk=pk)
+        order.state = 'ENVIADO'
+        order.save()
+        return redirect('custom_admin:order_list')
