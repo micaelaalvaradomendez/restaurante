@@ -46,8 +46,8 @@ class OrderManager(models.Manager):
         # Actualizar el stock del producto
         for producto_id, cantidad in carrito.items():
             producto = Product.objects.get(id=producto_id)
-            producto.stock -= cantidad
-            if producto.stock == 0:
+            producto.quantity -= cantidad
+            if producto.quantity == 0:
                 producto.is_available = False
             producto.save() 
 
