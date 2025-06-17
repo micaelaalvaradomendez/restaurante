@@ -27,6 +27,9 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2)
-
+    #agregar getter method subtotal que sume product x quantity
+    @property
+    def subtotal(self):
+        return self.product.price * self.quantity
     def __str__(self):
         return f"{self.quantity}x {self.product.name} en {self.order.code}"
