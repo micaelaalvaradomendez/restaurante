@@ -9,7 +9,6 @@ User = get_user_model()
 class TimeSlot(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
-    # Para ver el horario en la zona horaria local (localtime)
     def __str__(self):
         start_local = localtime(self.start)
         end_local = localtime(self.end)
@@ -24,7 +23,6 @@ class Table(models.Model):
         return f"Mesa #{self.id} (Capacidad: {self.capacity})"
 
     def is_available(self):
-        # Devuelve True si hay al menos un timeslot no reservado
         return self.tabletimeslot_set.filter(is_reserved=False).exists()
 
 class TableTimeSlot(models.Model):
@@ -50,7 +48,6 @@ class Booking(models.Model):
     def __str__(self):
         return f"Reserva #{self.code} - {self.user.username}"
     
-#  Cuando se crea un timeslot, se crean las relaciones con todas las mesas
 @receiver(post_save, sender=TimeSlot)
 def create_table_time_slots(sender, instance, created, **kwargs):
     if created:

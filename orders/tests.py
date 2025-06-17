@@ -10,14 +10,12 @@ User = get_user_model()
 
 class OrderModelTest(TestCase):
     def setUp(self):
-        # Crear categorías
         self.ensaladas = Category.objects.create(name="Ensaladas", description="Ensaladas frescas")
         self.pizzas = Category.objects.create(name="Pizzas", description="Pizzas artesanales")
         self.postres = Category.objects.create(name="Postres", description="Deliciosos postres")
         self.bebidas = Category.objects.create(name="Bebidas", description="Bebidas y cócteles")
         self.cafeteria = Category.objects.create(name="Cafetería", description="Cafés y pastelería")
         
-        # Crear productos de prueba 
         self.pizza_pepperoni = Product.objects.create(
             pk=1,
             name="Pizza Pepperoni",

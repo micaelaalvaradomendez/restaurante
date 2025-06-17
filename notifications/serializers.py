@@ -13,7 +13,6 @@ class NotificationStatusSerializer(serializers.ModelSerializer):
         read_only_fields = ['notification', 'user', 'created_at']
 
     def update(self, instance, validated_data):
-        # Solo permitir actualizar is_read
         instance.is_read = validated_data.get('is_read', instance.is_read)
         instance.save()
         return instance

@@ -28,7 +28,6 @@ class NotificationStatusViewSet(viewsets.ModelViewSet):
         return NotificationStatus.objects.filter(user=user)
 
     def perform_update(self, serializer):
-        # Solo actualizar is_read y solo para el usuario dueño
         instance = self.get_object()
         if instance.user != self.request.user and not self.request.user.is_staff:
             raise PermissionDenied("No tienes permiso para modificar este estado")
