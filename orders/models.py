@@ -13,15 +13,18 @@ class OrderManager(models.Manager):
         return order
     
     def crear_pedido_desde_carrito(self, user, carrito):
+        # Calcular el total del pedido
         total = sum(
             producto.price * cantidad
             for producto_id, cantidad in carrito.items()
             if (producto := Product.objects.filter(id=producto_id).first())
         )
         
+        # Buscar el último pedido para generar un nuevo código
         ultimo_pedido = self.model.objects.order_by('-id').first()
         nuevo_id = (ultimo_pedido.id if ultimo_pedido else 0) + 1
 
+        # Crea el objeto Order
         pedido = self.model.objects.create(
             user=user,
             code=f"PED{nuevo_id:04d}",
@@ -30,6 +33,7 @@ class OrderManager(models.Manager):
             amount=total,
         )
 
+        # Crear los OrderItems desde el carrito
         for producto_id, cantidad in carrito.items():
             producto = Product.objects.get(id=producto_id)
             OrderItem.objects.create(
@@ -38,6 +42,14 @@ class OrderManager(models.Manager):
                 quantity=cantidad,
                 price_at_purchase=producto.price
             )
+
+        # Actualizar el stock del producto
+        for producto_id, cantidad in carrito.items():
+            producto = Product.objects.get(id=producto_id)
+            producto.stock -= cantidad
+            if producto.stock == 0:
+                producto.is_available = False
+            producto.save() 
 
         return pedido
 
@@ -60,13 +72,12 @@ class Order(models.Model):
     def __str__(self):
         return f"Pedido #{self.code}"
  
-
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2)
-    #agregar getter method subtotal que sume product x quantity
+    
     @property
     def subtotal(self):
         return self.product.price * self.quantity
