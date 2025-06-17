@@ -13,7 +13,6 @@ class PerfilView(LoginRequiredMixin, TemplateView):
         usuario = self.request.user
         reservas = Booking.objects.filter(user=usuario).select_related('table', 'timeslot')
 
-        # Reservas pendientes: no confirmadas o con fecha futura
         reservas_pendientes = reservas.filter(
             is_approved=False
         ) | reservas.filter(
@@ -21,13 +20,11 @@ class PerfilView(LoginRequiredMixin, TemplateView):
         )
         reservas_pendientes = reservas_pendientes.distinct().order_by('timeslot__start')
 
-        # Reservas históricas: confirmadas y con fecha pasada
         reservas_historicas = reservas.filter(
             is_approved=True,
             timeslot__start__lte=now()
         ).order_by('-timeslot__start')
 
-        # Solo productos de pedidos entregados (state="RETIRADO" o "ENVIADO")
         productos_entregados = Product.objects.filter(
             orderitem__order__user=usuario,
             orderitem__order__state__in=["RETIRADO", "ENVIADO"]

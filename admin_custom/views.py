@@ -31,7 +31,7 @@ class BookingListView(LoginRequiredMixin, StaffRequiredMixin, ListView):
     model = Booking
     template_name = "custom_admin/booking_list.html"
     context_object_name = "bookings"
-    paginate_by = 20  # Opcional: paginación
+    paginate_by = 20  
 
     def get_queryset(self):
         return Booking.objects.all().order_by('-approved_date')

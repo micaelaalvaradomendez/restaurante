@@ -14,7 +14,7 @@ class Rating(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'product')  # 1 calificación por usuario-producto
+        unique_together = ('user', 'product')
         verbose_name = 'Calificación'
         verbose_name_plural = 'Calificaciones'
 

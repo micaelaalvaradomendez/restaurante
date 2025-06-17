@@ -12,10 +12,9 @@ class User(AbstractUser):
     rol=models.CharField (max_length=10,choices=Roles, default='CLIENTE')
     email=models.EmailField(unique=True)
 
-    # Sobrescribir estos campos para evitar conflictos con auth.User
     groups = models.ManyToManyField(
         Group,
-        related_name='custom_user_set',  # Cambia el related_name para que no choque
+        related_name='custom_user_set',
         blank=True,
         help_text=(
             'The groups this user belongs to. A user will get all permissions '
@@ -26,7 +25,7 @@ class User(AbstractUser):
 
     user_permissions = models.ManyToManyField(
         Permission,
-        related_name='custom_user_set',  # Cambia también aquí
+        related_name='custom_user_set',  
         blank=True,
         help_text='Specific permissions for this user.',
         related_query_name='custom_user',
@@ -35,7 +34,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
     
-    # Métodos para verificar roles (compatibles con los decoradores)
     def is_admin(self):
         return self.rol == 'ADMIN' or self.is_superuser  
     
@@ -45,7 +43,6 @@ class User(AbstractUser):
     def is_client(self):
         return self.rol == 'CLIENTE'
     
-    # Métodos para permisos específicos
     def can_manage_products(self):
         return self.is_admin()
     

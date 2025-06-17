@@ -13,7 +13,6 @@ class Product(models.Model):
     is_available = models.BooleanField(default=True, verbose_name="Disponible")
     
     def __str__(self):
-        # devuelve el nombre si existe, y sino el titulo
         return self.title if self.title else self.name
         
     @classmethod
@@ -53,7 +52,7 @@ class Product(models.Model):
 
     def update(self, name=None, description=None, price=None, quantity=None, categories=None):
         self.name = name or self.name
-        self.title = name or self.title  # Actualizamos ambos campos
+        self.title = name or self.title
         self.description = description or self.description
         self.price = price or self.price
         self.quantity = quantity or self.quantity

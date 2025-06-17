@@ -7,14 +7,12 @@ from notifications.models import Notification
 
 User = get_user_model()
 
-# Desregistrar modelos si ya están registrados
 for model in [User, Product, Category, Booking, Order, Notification, Rating, Table, TimeSlot]:
     try:
         admin.site.unregister(model)
     except admin.sites.NotRegistered:
         pass
 
-# Filtro para usuarios administradores
 class AdminFilter(admin.SimpleListFilter):
     title = 'Rol de usuario'
     parameter_name = 'role'
@@ -34,7 +32,6 @@ class AdminFilter(admin.SimpleListFilter):
         if self.value() == 'CLIENTE':
             return queryset.filter(rol='CLIENTE')
 
-# Admin personalizado para User
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email', 'rol', 'is_active')
     list_filter = (AdminFilter, 'is_active')
@@ -47,7 +44,6 @@ class UserAdmin(admin.ModelAdmin):
             return qs.filter(is_superuser=False)
         return qs
 
-# Admin personalizado para Product
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'is_available')
     list_filter = ('is_available', 'categories')
@@ -60,7 +56,6 @@ class ProductAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return request.user.rol == 'ADMIN'
 
-# Admin personalizado para Booking
 class BookingAdmin(admin.ModelAdmin):
     list_display = ('code', 'user', 'table', 'timeslot', 'is_approved')
     list_filter = ('is_approved', 'timeslot')
@@ -78,7 +73,6 @@ class BookingAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return request.user.rol in ['ADMIN', 'CAJERO']
 
-# Registrar modelos con admins personalizados
 admin.site.register(User, UserAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
