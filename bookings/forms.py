@@ -3,6 +3,7 @@ from .models import Booking, Table, TimeSlot
 from django.utils.timezone import localtime
 
 class TimeSlotModelChoiceField(forms.ModelChoiceField):
+    # agrega un método para mostrar el horario en la zona horaria local
     def label_from_instance(self, obj):
         start_local = localtime(obj.start)
         end_local = localtime(obj.end)
