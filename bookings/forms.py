@@ -1,10 +1,12 @@
 from django import forms
 from .models import Booking, Table, TimeSlot
+from django.utils.timezone import localtime
 
 class TimeSlotModelChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
-        # Muestra fecha y hora: 01/06/2025 20:00 - 01/06/2025 21:00
-        return f"{obj.start.strftime('%d/%m/%Y %H:%M')} - {obj.end.strftime('%H:%M')}"
+        start_local = localtime(obj.start)
+        end_local = localtime(obj.end)
+        return f"{start_local.strftime('%d/%m/%Y %H:%M')} - {end_local.strftime('%H:%M')}"
 
 class BookingForm(forms.ModelForm):
     timeslot = TimeSlotModelChoiceField(

@@ -27,3 +27,4 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
+ 

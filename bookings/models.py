@@ -1,15 +1,19 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.utils.timezone import localtime
 
 User = get_user_model()
 
 class TimeSlot(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
-
+    # Para ver el horario en la zona horaria local (localtime)
     def __str__(self):
-        # Ejemplo: 01/06/2025 20:00 - 21:00
-        return f"{self.start.strftime('%d/%m/%Y %H:%M')} - {self.end.strftime('%H:%M')}"
+        start_local = localtime(self.start)
+        end_local = localtime(self.end)
+        return f"{start_local.strftime('%d/%m/%Y %H:%M')} - {end_local.strftime('%H:%M')}"
 
 class Table(models.Model):
     capacity = models.IntegerField(verbose_name="Capacidad")
@@ -45,3 +49,10 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"Reserva #{self.code} - {self.user.username}"
+    
+#  Cuando se crea un timeslot, se crean las relaciones con todas las mesas
+@receiver(post_save, sender=TimeSlot)
+def create_table_time_slots(sender, instance, created, **kwargs):
+    if created:
+        for table in Table.objects.all():
+            TableTimeSlot.objects.get_or_create(table=table, timeslot=instance)
