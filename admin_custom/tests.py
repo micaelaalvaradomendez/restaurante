@@ -59,7 +59,6 @@ class CustomAdminTemplatesTest(TestCase):
     def setUp(self):
         self.admin = User.objects.create_user(username='admin', password='admin', rol='ADMIN')
         self.client.login(username='admin', password='admin')
-        # Crea un pedido de ejemplo
         self.order = Order.objects.create(user=self.admin, code='PED-0001', amount=100, state='PREPARACION')
 
     def test_order_list_template_used(self):

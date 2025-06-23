@@ -19,7 +19,6 @@ def role_required(*allowed_roles):
         return wrapper
     return decorator
 
-# Decoradores específicos para cada rol
 def admin_required(view_func):
     """
     Solo para administradores (y superusuarios)

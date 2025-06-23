@@ -11,7 +11,7 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_notifications')
     recipients = models.ManyToManyField(User, through='NotificationStatus', related_name='notifications') # Relaciona usuarios con notificaciones
-    is_global = models.BooleanField(default=False)  # Notificaciones generales para todos los usuarios
+    is_global = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

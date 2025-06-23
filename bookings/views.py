@@ -14,7 +14,6 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('perfil')
 
     def form_valid(self, form):
-        # Solo permite una reserva pendiente por usuario (no aprobada)
         if Booking.objects.filter(user=self.request.user, is_approved=False).exists():
             form.add_error(None, "Ya tienes una reserva pendiente de respuesta.")
             return self.form_invalid(form)
@@ -27,3 +26,4 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
+ 

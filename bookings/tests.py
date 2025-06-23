@@ -7,7 +7,6 @@ print("Iniciando test del modelo bookings...")
 User = get_user_model()
 
 class BookingModelsTest(TestCase):
-    # Creo los objetos para los tests
     def setUp(self):
         self.user = User.objects.create_user(username='cliente', email='cliente@gmail.com', password='12345', rol='CLIENTE')
 
