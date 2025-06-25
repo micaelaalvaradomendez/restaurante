@@ -57,18 +57,18 @@ class ProductAdmin(admin.ModelAdmin):
         return request.user.rol == 'ADMIN'
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ('code', 'user', 'table', 'timeslot', 'is_approved')
-    list_filter = ('is_approved', 'timeslot')
+    list_display = ('code', 'user', 'table', 'timeslot', 'is_approved', 'is_rejected')
+    list_filter = ('is_approved', 'is_rejected', 'timeslot')
     search_fields = ('code', 'user__username')
-    actions = ['approve_bookings', 'reject_bookings']
+    actions = ['approve_booking', 'reject_booking']
 
-    def approve_bookings(self, request, queryset):
+    def approve_booking(self, request, queryset):
         queryset.update(is_approved=True)
-    approve_bookings.short_description = "Aprobar reservas seleccionadas"
+    approve_booking.short_description = "Aprobar reservas seleccionadas"
 
-    def reject_bookings(self, request, queryset):
-        queryset.update(is_approved=False)
-    reject_bookings.short_description = "Rechazar reservas seleccionadas"
+    def reject_booking(self, request, queryset):
+        queryset.update(is_rejected=True)
+    reject_booking.short_description = "Rechazar reservas seleccionadas"
 
     def has_change_permission(self, request, obj=None):
         return request.user.rol in ['ADMIN', 'CAJERO']

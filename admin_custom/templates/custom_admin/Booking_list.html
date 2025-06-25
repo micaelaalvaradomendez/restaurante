@@ -28,18 +28,18 @@
                     <span class="badge bg-secondary">No</span>
                 {% endif %}
             </td>
-            <td>{{ booking.observations }}</td>
+            <td>{{ booking.observations }}{% if booking.is_rejected %} - Reserva Rechazada{% endif %}</td>
             <td>
-                {% if not booking.is_approved %}
+                {% if not booking.is_approved and not booking.is_rejected %}
                 <form method="post" action="{% url 'custom_admin:approve_booking' booking.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-success btn-sm">Aprobar</button>
                 </form>
-                {% endif %}
                 <form method="post" action="{% url 'custom_admin:reject_booking' booking.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
                 </form>
+                {% endif %}
             </td>
         </tr>
         {% empty %}

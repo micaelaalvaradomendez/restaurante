@@ -2,13 +2,15 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, UpdateView, DeleteView, CreateView, DetailView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from menu_app.models import Product, Category
-from bookings.models import Booking, Table
+from bookings.models import Booking, Table, TimeSlot
 from orders.models import Order
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from .mixins import StaffRequiredMixin
-from django.views.generic import CreateView, UpdateView, DeleteView
+from bookings.models import TimeSlot
+
+
 class AdminRequiredMixin(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.rol == 'ADMIN'
@@ -22,7 +24,7 @@ class AdminDashboardView(LoginRequiredMixin, StaffRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pending_bookings'] = Booking.objects.filter(is_approved=False).count()
+        context['pending_bookings'] = Booking.objects.filter(is_approved=False, is_rejected=False).count()
         context['pending_orders'] = Order.objects.filter(state='PREPARACION').count()
         return context
 
@@ -78,7 +80,6 @@ class TableCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
     template_name = 'custom_admin/table_form.html'
     success_url = reverse_lazy('custom_admin:table_management')
 
-
 class BookingApproveView(LoginRequiredMixin, StaffRequiredMixin, View):
     def post(self, request, pk):
         booking = get_object_or_404(Booking, pk=pk)
@@ -89,7 +90,7 @@ class BookingApproveView(LoginRequiredMixin, StaffRequiredMixin, View):
 class BookingRejectView(LoginRequiredMixin, StaffRequiredMixin, View):
     def post(self, request, pk):
         booking = get_object_or_404(Booking, pk=pk)
-        booking.is_approved = False
+        booking.is_rejected = True
         booking.save()
         return redirect('custom_admin:booking_list')
 
@@ -121,3 +122,25 @@ class OrderUpdateStateView(LoginRequiredMixin, View):
         order.state = 'ENVIADO'
         order.save()
         return redirect('custom_admin:order_list')
+
+class TimeSlotListView(ListView):
+    model = TimeSlot
+    template_name = "custom_admin/timeslot_list.html"
+    context_object_name = "timeslots"
+
+class TimeSlotCreateView(CreateView):
+    model = TimeSlot
+    fields = ['start', 'end']
+    template_name = "custom_admin/timeslot_form.html"
+    success_url = reverse_lazy('custom_admin:timeslot_list')
+
+class TimeSlotUpdateView(UpdateView):
+    model = TimeSlot
+    fields = ['start', 'end']
+    template_name = "custom_admin/timeslot_form.html"
+    success_url = reverse_lazy('custom_admin:timeslot_list')
+
+class TimeSlotDeleteView(DeleteView):
+    model = TimeSlot
+    template_name = "custom_admin/timeslot_confirm_delete.html"
+    success_url = reverse_lazy('custom_admin:timeslot_list')

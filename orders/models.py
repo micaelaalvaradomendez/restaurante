@@ -30,7 +30,7 @@ class OrderManager(models.Manager):
             code=f"PED{nuevo_id:04d}",
             buy_date=timezone.now(),
             state='PREPARACION',
-            amount=total,
+            amount=total,    
         )
 
         # Crear los OrderItems desde el carrito
@@ -47,7 +47,7 @@ class OrderManager(models.Manager):
         for producto_id, cantidad in carrito.items():
             producto = Product.objects.get(id=producto_id)
             producto.quantity -= cantidad
-            if producto.quantity == 0:
+            if producto.quantity <= 0:
                 producto.is_available = False
             producto.save() 
 

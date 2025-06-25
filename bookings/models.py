@@ -43,6 +43,8 @@ class Booking(models.Model):
     code = models.CharField(max_length=20, unique=True)
     is_approved = models.BooleanField(default=False)
     approved_date = models.DateField(null=True, blank=True)
+    is_rejected = models.BooleanField(default=False)
+    rejected_date = models.DateField(null=True, blank=True)
     observations = models.TextField(blank=True)
 
     def __str__(self):

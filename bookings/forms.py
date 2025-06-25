@@ -28,3 +28,14 @@ class BookingForm(forms.ModelForm):
             'timeslot': 'Horario',
             'observations': 'Observaciones',
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        table = cleaned_data.get('table')
+        timeslot = cleaned_data.get('timeslot')
+
+        if table and timeslot:
+            # Verifica si ya existe una reserva para esa mesa y horario
+            if Booking.objects.filter(table=table, timeslot=timeslot).exists():
+                raise forms.ValidationError("Esa mesa ya está reservada para ese horario.")
+        return cleaned_data

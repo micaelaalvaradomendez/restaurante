@@ -1,0 +1,22 @@
+{% extends "custom_admin/base.html" %}
+{% block content %}
+<h2>Gestionar Horarios</h2>
+<a href="{% url 'custom_admin:timeslot_create' %}" class="btn btn-primary mb-3">Nuevo horario</a>
+<table class="table">
+    <tr>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Acciones</th>
+    </tr>
+    {% for timeslot in timeslots %}
+    <tr>
+        <td>{{ timeslot.start }}</td>
+        <td>{{ timeslot.end }}</td>
+        <td>
+            <a href="{% url 'custom_admin:timeslot_update' timeslot.pk %}" class="btn btn-sm btn-warning">Editar</a>
+            <a href="{% url 'custom_admin:timeslot_delete' timeslot.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

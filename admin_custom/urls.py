@@ -1,5 +1,8 @@
 from django.urls import path
 from . import views
+from .views import (
+    TimeSlotListView, TimeSlotCreateView, TimeSlotUpdateView, TimeSlotDeleteView
+)
 
 app_name = 'custom_admin'
 
@@ -19,4 +22,8 @@ urlpatterns = [
     path('tables/add/', views.TableCreateView.as_view(), name='table_add'),
     path('tables/<int:pk>/edit/', views.TableUpdateView.as_view(), name='table_edit'),
     path('tables/<int:pk>/delete/', views.TableDeleteView.as_view(), name='table_delete'),
+    path('timeslots/', TimeSlotListView.as_view(), name='timeslot_list'),
+    path('timeslots/nuevo/', TimeSlotCreateView.as_view(), name='timeslot_create'),
+    path('timeslots/<int:pk>/editar/', TimeSlotUpdateView.as_view(), name='timeslot_update'),
+    path('timeslots/<int:pk>/eliminar/', TimeSlotDeleteView.as_view(), name='timeslot_delete'),
 ]

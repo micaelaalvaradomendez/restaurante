@@ -22,7 +22,7 @@
                 <td>{{ booking.user.username }}</td>
                 <td>{{ booking.table }}</td>
                 <td>{{ booking.timeslot }}</td>
-                <td>{% if booking.is_approved %}Aprobada{% else %}Pendiente{% endif %}</td>
+                <td>{% if booking.is_approved %}Aprobada {% if booking.is_rejected %} Rechazada {% else %}Pendiente{% endif %}</td>
                 <td>
                     <a href="#" class="button">Detalles</a>
                 </td>

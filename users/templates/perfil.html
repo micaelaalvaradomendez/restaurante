@@ -21,37 +21,41 @@
         <p>No tienes reservas en curso.</p>
     {% endif %}
 
-    <h4 class="mt-4">Reservas pendientes</h4>
-    {% if reservas_pendientes %}
-        <ul class="list-group mb-4">
-            {% for reserva in reservas_pendientes %}
+    <h4 class="mt-4">Reservas pendientes de confirmación</h4>
+    <ul class="list-group mb-4">
+        {% for reserva in reservas %}
+            {% if not reserva.is_approved and not reserva.is_rejected %}
                 <li class="list-group-item">
                     <strong>Mesa:</strong> {{ reserva.table.description }}<br>
                     <strong>Horario:</strong> {{ reserva.timeslot.start|date:"d/m/Y H:i" }} - {{ reserva.timeslot.end|date:"H:i" }}
-                    {% if not reserva.is_approved %}
-                        <span class="badge bg-warning">Pendiente de confirmación</span>
-                    {% else %}
-                        <span class="badge bg-info">Confirmada para el futuro</span>
-                    {% endif %}
+                    <span class="badge bg-warning">Pendiente de confirmación</span>
                 </li>
-            {% endfor %}
-        </ul>
-    {% else %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% if not reservas|dictsort:"is_approved"|dictsort:"is_rejected" %}
         <p>No tienes reservas pendientes.</p>
     {% endif %}
 
     <h4 class="mt-4">Historial de reservas</h4>
-    {% if reservas_historicas %}
-        <ul class="list-group mb-4">
-            {% for reserva in reservas_historicas %}
+    <ul class="list-group mb-4">
+        {% for reserva in reservas %}
+            {% if reserva.is_rejected %}
                 <li class="list-group-item">
                     <strong>Mesa:</strong> {{ reserva.table.description }}<br>
                     <strong>Horario:</strong> {{ reserva.timeslot.start|date:"d/m/Y H:i" }} - {{ reserva.timeslot.end|date:"H:i" }}
-                    <span class="badge bg-success">Finalizada</span>
+                    <span class="badge bg-danger">Rechazada</span>
                 </li>
-            {% endfor %}
-        </ul>
-    {% else %}
+            {% elif reserva.is_approved %}
+                <li class="list-group-item">
+                    <strong>Mesa:</strong> {{ reserva.table.description }}<br>
+                    <strong>Horario:</strong> {{ reserva.timeslot.start|date:"d/m/Y H:i" }} - {{ reserva.timeslot.end|date:"H:i" }}
+                    <span class="badge bg-success">Aprobada</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% if not reservas|dictsort:"is_approved"|dictsort:"is_rejected" %}
         <p>No tienes reservas anteriores.</p>
     {% endif %}
 

@@ -31,8 +31,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('custom-admin/', include('admin_custom.urls')),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
-
-    # login/logout de Django
     path('login/', auth_views.LoginView.as_view(
         template_name='login.html',
         redirect_authenticated_user=True

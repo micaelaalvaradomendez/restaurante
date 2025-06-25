@@ -8,7 +8,6 @@
         <tr>
             <th>ID</th>
             <th>Capacidad</th>
-            <th>Estado</th>
             <th>Descripción</th> 
             <th>Acciones</th>
         </tr>
@@ -18,13 +17,6 @@
         <tr>
             <td>{{ table.id }}</td>
             <td>{{ table.capacity }}</td>
-            <td>
-                {% if table.is_available %}
-                    <span class="badge bg-success">Disponible</span>
-                {% else %}
-                    <span class="badge bg-danger">Ocupada</span>
-                {% endif %}
-            </td>
             <td>{{ table.description }}</td> 
             <td>
                 <a href="{% url 'custom_admin:table_edit' table.id %}" class="btn btn-sm btn-warning">Editar</a>

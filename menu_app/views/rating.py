@@ -37,7 +37,7 @@ class RatingUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return rating.user == self.request.user
 
     def get_success_url(self):
-        return reverse_lazy('perfil')  # Redirige al perfil al editar
+        return reverse_lazy('perfil')
 
 class RatingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Rating
@@ -48,4 +48,4 @@ class RatingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return rating.user == self.request.user
 
     def get_success_url(self):
-        return reverse_lazy('perfil')  # Esto redirige al perfil después de eliminar
+        return reverse_lazy('perfil')

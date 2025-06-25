@@ -12,7 +12,8 @@ class PerfilView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         usuario = self.request.user
         reservas = Booking.objects.filter(user=usuario).select_related('table', 'timeslot')
-
+        context['reservas'] = reservas
+        
         reservas_pendientes = reservas.filter(
             is_approved=False
         ) | reservas.filter(
