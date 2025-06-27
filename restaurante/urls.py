@@ -28,7 +28,6 @@ urlpatterns = [
     path("users/", include("users.urls")),
     path("notifications/", include("notifications.urls")),
     path('usuario/', include('users.urls')),
-    path('admin/', admin.site.urls),
     path('custom-admin/', include('admin_custom.urls')),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('login/', auth_views.LoginView.as_view(
