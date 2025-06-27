@@ -38,6 +38,8 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'custom_admin:admin_dashboard' %}">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'custom_admin:booking_list' %}">Reservas</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'custom_admin:order_list' %}">Pedidos</a></li>
+                    <li class="nav-item"><a class="nav-link d-flex align-items-center" href="{% url 'custom_admin:timeslot_list' %}">
+                        <i class="bi bi-clock-history me-1"></i> Gestionar Horarios</a></li>
                     {%if user.is_admin%}
                     <li class="nav-item"><a class="nav-link" href="{% url 'custom_admin:product_list' %}">Productos</a></li>
                     {%endif%}
