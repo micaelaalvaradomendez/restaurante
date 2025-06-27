@@ -103,6 +103,34 @@
             text-align: center;
             border-top: 1px solid var(--dorado);
         }
+        .button, button, input[type="submit"] {
+            background: var(--dorado);
+            color: var(--marron-oscuro);
+            border: none;
+            border-radius: 12px;
+            padding: 0.75em 2.2em;
+            font-family: var(--fuente-principal);
+            font-size: 1.08rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(166, 132, 94, 0.11);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            outline: none;
+            letter-spacing: 0.5px;
+        }
+
+        .button:hover, button:hover, input[type="submit"]:hover {
+            background: var(--coral);
+            color: var(--blanco);
+            box-shadow: 0 4px 18px rgba(249, 184, 167, 0.15);
+        }
+        .button:disabled, button:disabled, input[type="submit"]:disabled {
+            background: #e5dfd2;
+            color: #b9a892;
+            cursor: not-allowed;
+            opacity: 0.7;
+            box-shadow: none;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
