@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="{% static 'custom_admin/styles.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --blanco: #FCF8F3;
+            --arena: #F6E8DA;
+            --dorado: #FFD28F;
+            --marron-claro: #A6845E;
+            --marron-oscuro: #554439;
+            --azul-noche: #2E4158;
+            --celeste-luna: #A8CAE8;
+            --coral: #F9B8A7;
+
+            --fuente-principal: 'Montserrat', 'Quicksand', Arial, sans-serif;
+        }
         body {
             padding-top: 70px;
             font-family: 'Montserrat', 'Quicksand', Arial, sans-serif; /* Aplica Nunito */
@@ -32,6 +44,15 @@
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(166, 132, 94, 0.13);
             transition: background 0.3s, color 0.3s;
+        }
+        .btn-success {
+            background: var(--dorado) !important;
+        }
+        .btn-danger {
+            background: var(--dorado) !important;
+        } .btn-success:hover, .btn-danger:hover {
+            background: var(--dorado) !important;
+            color: #fff !important;
         }
 
         .navbar-bordo .nav-link.active,
