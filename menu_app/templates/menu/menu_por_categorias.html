@@ -3,29 +3,7 @@
 {% block content %}
 <div class="container my-5">
     <h1 class="text-center mb-4">Menú</h1>
-    <style>
-        .btn-success {
-            background-color: #FFD28F !important; 
-            color: #554439 !important;
-            border: none !important;
-        }
-        .btn-success:hover, .btn-success:focus {
-            background-color: #F9B8A7 !important; 
-            color: #fff !important;
-        }
-        .btn-secondary:disabled, .btn-secondary[disabled]{
-            background-color: #F6E8DA !important; 
-            color: #A6845E !important;            
-            border: none !important;
-            opacity: 1 !important;
-        }
-        .btn-secondary:disabled, .btn-secondary[disabled] {
-            background-color: #6B4F2B !important; 
-            color: #6B4F2B !important;           
-            border: none !important;
-            opacity: 1 !important;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% for categoria, productos in categorias_con_productos %}
     <h2 class="mt-4">{{ categoria.name }}</h2>
     {% if productos %}
