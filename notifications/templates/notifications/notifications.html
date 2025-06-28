@@ -5,7 +5,11 @@
 <ul class="list-group">
     {% for status in notificaciones_estado_lista %}
         <li class="list-group-item d-flex justify-content-between align-items-center {% if status.is_read %}text-muted{% endif %}">
-            {{ status.notification.message }}
+            <div>
+                <strong>{{ status.notification.title }}</strong>
+                <br>
+                {{ status.notification.message }}
+            </div>
             {% if not status.is_read %}
                 <form method="post" action="{% url 'marcar_leida' status.pk %}">
                     {% csrf_token %}

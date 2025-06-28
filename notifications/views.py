@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework import viewsets
 from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
+
+from users.mixins import AdminRequiredMixin
 from .models import Notification, NotificationStatus
 from .serializers import NotificationSerializer, NotificationStatusSerializer
 from .permissions import IsAdminOrReadOnly, IsOwnerOrAdminForStatus
@@ -47,3 +49,4 @@ class NotisUsuario(LoginRequiredMixin):
             estado.is_read = True
             estado.save()
         return redirect('mis_notificaciones')
+

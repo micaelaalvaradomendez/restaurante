@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from .mixins import StaffRequiredMixin
 from bookings.models import TimeSlot
-
+from notifications.models import Notification
 
 class AdminRequiredMixin(UserPassesTestMixin):
     def test_func(self):
@@ -144,3 +144,30 @@ class TimeSlotDeleteView(DeleteView):
     model = TimeSlot
     template_name = "custom_admin/timeslot_confirm_delete.html"
     success_url = reverse_lazy('custom_admin:timeslot_list')
+ 
+    
+class NotificacionAdminListView(ListView):
+    model = Notification
+    template_name = "custom_admin/notifications_admin_list.html"
+    context_object_name = "notificaciones"
+
+class NotificacionAdminCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
+    model = Notification
+    fields = ['title', 'message', 'is_global', 'recipients']
+    template_name = "custom_admin/notifications_admin_form.html"
+    success_url = reverse_lazy('custom_admin:notificaciones_admin')
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user  # Asigna el usuario actual como sender
+        return super().form_valid(form)
+
+class NotificacionAdminUpdateView(UpdateView):
+    model = Notification
+    fields = ['title', 'message', 'is_global', 'recipients']
+    template_name = "custom_admin/notifications_admin_form.html"
+    success_url = reverse_lazy('custom_admin:notificaciones_admin')
+
+class NotificacionAdminDeleteView(DeleteView):
+    model = Notification
+    template_name = "custom_admin/notifications_admin_confirm_delete.html"
+    success_url = reverse_lazy('custom_admin:notificaciones_admin')
