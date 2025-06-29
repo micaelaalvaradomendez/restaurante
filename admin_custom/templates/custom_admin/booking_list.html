@@ -9,7 +9,7 @@
             <th>Cliente</th>
             <th>Mesa</th>
             <th>Horario</th>
-            <th>Estado</th>
+            <th>Aprobada</th>
             <th>Observaciones</th>
             <th>Acciones</th>
         </tr>
@@ -22,12 +22,10 @@
             <td>{{ booking.table }}</td>
             <td>{{ booking.timeslot }}</td>
             <td>
-                {% if booking.is_rejected %}
-                    <span class="badge bg-danger">Rechazada</span>
-                {% elif booking.is_approved %}
-                    <span class="badge bg-success">Aprobada</span>
+                {% if booking.is_approved %}
+                    <span class="badge bg-success">Sí</span>
                 {% else %}
-                    <span class="badge bg-warning text-dark">Pendiente</span>
+                    <span class="badge bg-secondary">No</span>
                 {% endif %}
             </td>
             <td>{{ booking.observations|default:"-" }}</td>
