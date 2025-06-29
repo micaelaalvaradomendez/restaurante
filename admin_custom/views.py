@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 from .mixins import StaffRequiredMixin
 from bookings.models import TimeSlot
 from notifications.models import Notification
+from django.contrib import messages
 
 class AdminRequiredMixin(UserPassesTestMixin):
     def test_func(self):
@@ -171,3 +172,33 @@ class NotificacionAdminDeleteView(DeleteView):
     model = Notification
     template_name = "custom_admin/notifications_admin_confirm_delete.html"
     success_url = reverse_lazy('custom_admin:notificaciones_admin')
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    template_name = "custom_admin/category_confirm_delete.html"
+    success_url = reverse_lazy('custom_admin:category_list')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # Verifica si hay productos asociados ANTES de borrar
+        if self.object.products.exists():
+            messages.error(request, "No se puede eliminar la categoría porque tiene productos asociados.")
+            return redirect(self.success_url)
+        return super().post(request, *args, **kwargs)
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = "custom_admin/category_list.html"
+    context_object_name = "object_list"
+
+class CategoryCreateView(CreateView):
+    model = Category
+    fields = ['name', 'description', 'is_active']
+    template_name = "custom_admin/category_form.html"
+    success_url = reverse_lazy('custom_admin:category_list')
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    fields = ['name', 'description', 'is_active']
+    template_name = "custom_admin/category_form.html"
+    success_url = reverse_lazy('custom_admin:category_list')

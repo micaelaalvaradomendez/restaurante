@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 from .views import (
     TimeSlotListView, TimeSlotCreateView, TimeSlotUpdateView, TimeSlotDeleteView,
-    NotificacionAdminListView, NotificacionAdminCreateView, NotificacionAdminUpdateView, NotificacionAdminDeleteView
+    NotificacionAdminListView, NotificacionAdminCreateView, NotificacionAdminUpdateView, NotificacionAdminDeleteView,
+    CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
 )
 
 app_name = 'custom_admin'
@@ -31,4 +32,8 @@ urlpatterns = [
     path('notificaciones/nueva/', NotificacionAdminCreateView.as_view(), name='notificaciones_admin_create'),
     path('notificaciones/<int:pk>/editar/', NotificacionAdminUpdateView.as_view(), name='notificaciones_admin_edit'),
     path('notificaciones/<int:pk>/eliminar/', NotificacionAdminDeleteView.as_view(), name='notificaciones_admin_delete'),
+    path('categorias/', CategoryListView.as_view(), name='category_list'),
+    path('categorias/nueva/', CategoryCreateView.as_view(), name='category_create'),
+    path('categorias/<int:pk>/editar/', CategoryUpdateView.as_view(), name='category_edit'),
+    path('categorias/<int:pk>/eliminar/', CategoryDeleteView.as_view(), name='category_delete'),
 ]
