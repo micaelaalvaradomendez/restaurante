@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'menu_app/styles.css' %}">
 <div class="container mt-5">
     <h2 class="mb-4">Bienvenido, {{ usuario.get_full_name|default:usuario.username }}</h2>
 
