@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Mis Pedidos</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if pedidos %}
+        <div class="accordion" id="accordionPedidos">
+            {% for pedido in pedidos %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ pedido.id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ pedido.id }}" aria-expanded="false" aria-controls="collapse{{ pedido.id }}">
+                        <div class="d-flex justify-content-between w-100 me-3">
+                            <span><strong>Pedido #{{ pedido.code }}</strong></span>
+                            <span>{{ pedido.buy_date|date:"d/m/Y" }}</span>
+                            <span>${{ pedido.amount|floatformat:2 }}</span>
+                            <span><span class="badge 
+                                {% if pedido.state == 'APROBADO' %}bg-info
+                                {% elif pedido.state == 'PREPARACION' %}bg-warning text-dark
+                                {% elif pedido.state == 'ENVIADO' or pedido.state == 'RETIRADO' %}bg-success
+                                {% elif pedido.state == 'CANCELADO' %}bg-danger
+                                {% else %}bg-secondary
+                                {% endif %}">{{ pedido.get_state_display }}</span>
+                            </span>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse{{ pedido.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ pedido.id }}" data-bs-parent="#accordionPedidos">
+                    <div class="accordion-body">
+                        <h6>Detalles del Pedido:</h6>
+                        <ul class="list-group list-group-flush">
+                            {% for item in pedido.orderitem_set.all %}
+                            <li class="list-group-item">{{ item.quantity }}x {{ item.product.name }}</li>
+                            {% endfor %}
+                        </ul>
+                        
+                        {% if pedido.state == 'APROBADO' %}
+                        <div class="mt-3">
+                            <a href="{% url 'orders:process_payment' pedido.id %}" class="btn btn-success">Pagar Ahora</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Aún no has realizado ningún pedido.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

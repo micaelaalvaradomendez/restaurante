@@ -22,14 +22,14 @@ class OrderManager(models.Manager):
         
         # Buscar el último pedido para generar un nuevo código
         ultimo_pedido = self.model.objects.order_by('-id').first()
-        nuevo_id = (ultimo_pedido.id if ultimo_pedido else 0) + 1
+        nuevo_id = (ultimo_pedido.id + 1) if ultimo_pedido else 1
 
         # Crea el objeto Order
         pedido = self.model.objects.create(
             user=user,
             code=f"PED{nuevo_id:04d}",
             buy_date=timezone.now(),
-            state='PREPARACION',
+            state='PENDIENTE_APROBACION',
             amount=total,    
         )
 
@@ -43,30 +43,24 @@ class OrderManager(models.Manager):
                 price_at_purchase=producto.price
             )
 
-        # Actualizar el stock del producto
-        for producto_id, cantidad in carrito.items():
-            producto = Product.objects.get(id=producto_id)
-            producto.quantity -= cantidad
-            if producto.quantity <= 0:
-                producto.is_available = False
-            producto.save() 
-
         return pedido
 
 class Order(models.Model):
     objects = OrderManager()
-    STATES = [
+    STATE_CHOICES = [
+        ('PENDIENTE_APROBACION', 'Pendiente de Aprobación'),
+        ('APROBADO', 'Aprobado - Pendiente de Pago'),
         ('PREPARACION', 'En preparación'),
         ('ENVIADO', 'Enviado'),
         ('RETIRADO', 'Retirado'),
         ('CANCELADO', 'Cancelado'),
-    ] 
+    ]
     
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=20, unique=True)
     buy_date = models.DateTimeField(auto_now_add=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    state = models.CharField(max_length=20, choices=STATES, default='PREPARACION')
+    state = models.CharField(max_length=30, choices=STATE_CHOICES, default='PENDIENTE_APROBACION')
     products = models.ManyToManyField(Product, through='OrderItem')
 
     def __str__(self):

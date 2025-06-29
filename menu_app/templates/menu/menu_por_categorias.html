@@ -30,7 +30,7 @@
                     <a href="{% url 'product_detail' producto.id %}" class="btn btn-primary mb-2">Ver más</a>
                     {% if user.is_authenticated %}
                         {% if producto.is_available %}
-                        <form method="post" action="{% url 'agregar_al_carrito' producto.id %}">
+                        <form method="post" action="{% url 'orders:agregar_al_carrito' producto.id %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-success">Agregar al pedido</button>
                         </form>

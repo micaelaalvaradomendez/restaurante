@@ -142,14 +142,14 @@ input[type="submit"]:disabled {
 
 .btn-secondary, .btn-secondary:disabled, .btn-secondary[disabled] {
     background: var(--arena) !important;
-    color: #6B4F2B !important; /* marrón más oscuro */
+    color: #6B4F2B !important;
     border: none !important;
     opacity: 1 !important;
 }
 
 .btn-primary{
     background: Rgb(224,102,102) !important;
-    color: var(--dorado) !important; /* marrón más oscuro */
+    color: var(--dorado) !important; 
     border: none !important;
     opacity: 1 !important;
 
@@ -165,7 +165,7 @@ input[type="submit"]:disabled {
 }
 
 .alert-success {
-    background: var(--arena) !important;   /* dorado */
-    color: var(--azul-noche) !important;        /* marrón oscuro */
+    background: var(--arena) !important;  
+    color: var(--azul-noche) !important;        
     border: none !important;
 }

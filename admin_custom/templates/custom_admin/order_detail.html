@@ -1,40 +1,54 @@
 {% extends "custom_admin/base.html" %}
 {% block content %}
-<h1>Detalles del Pedido</h1>
-<p><strong>ID del Pedido:</strong> {{ order.id }}</p>
-<p><strong>Código:</strong> {{ order.code }}</p>
-<p><strong>Estado:</strong> {{ order.state }}</p>
-<p><strong>Cliente:</strong> {{ order.user.username }}</p>
-<p><strong>Fecha de Compra:</strong> {{ order.buy_date|date:"d/m/Y H:i" }}</p>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Detalle del Pedido #{{ order.code }}</h2>
+        <a href="{% url 'custom_admin:order_list' %}" class="btn btn-secondary">Volver a la lista</a>
+    </div>
 
-<h2>Productos</h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio unitario</th>
-            <th>Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in order.orderitem_set.all %}
-        <tr>
-            <td>{{ item.product.name }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>${{ item.price_at_purchase }}</td>
-            <!-- <td>${{ item.quantity|floatformat:0|add:"0"|floatformat:0|floatformat:0|add:item.price_at_purchase|floatformat:2 }}</td>-->
-            <td>${{item.subtotal}}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="4" class="text-center">No hay productos en este pedido.</td>
-        </tr>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
-    </tbody>
-</table>
+    {% endif %}
 
-<p><strong>Total del pedido:</strong> ${{ order.amount }}</p>
+    <div class="card">
+        <div class="card-header">
+            Información del Pedido
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Cliente:</strong> {{ order.user.get_full_name|default:order.user.username }}</p>
+                    <p><strong>Email:</strong> {{ order.user.email }}</p>
+                    <p><strong>Fecha del Pedido:</strong> {{ order.buy_date|date:"d/m/Y H:i" }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Monto Total:</strong> ${{ order.amount|floatformat:2 }}</p>
+                    <p><strong>Estado:</strong> <span class="badge bg-primary fs-6">{{ order.get_state_display }}</span></p>
+                </div>
+            </div>
 
-<a href="{% url 'custom_admin:order_list' %}" class="btn btn-secondary">Volver a la lista de pedidos</a>
+            <h5 class="mt-4">Productos del Pedido</h5>
+            <ul class="list-group">
+                {% for item in order.orderitem_set.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ item.quantity }}x {{ item.product.name }}</span>
+                    <span>${{ item.price_at_purchase|floatformat:2 }} c/u</span>
+                    <strong>Subtotal: ${{ item.subtotal|floatformat:2 }}</strong>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="mt-4">
+                {% if order.state == 'PENDIENTE_APROBACION' %}
+                <form action="{% url 'custom_admin:order_approve' order.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Aprobar Pedido para Pago</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

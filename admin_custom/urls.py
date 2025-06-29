@@ -15,6 +15,7 @@ urlpatterns = [
     path('bookings/<int:pk>/reject/', views.BookingRejectView.as_view(), name='reject_booking'),
     path('orders/', views.OrderListView.as_view(), name='order_list'),
     path('orders/<int:pk>/', views.OrderDetailView.as_view(), name='order_detail'),
+    path('orders/<int:pk>/approve/', views.OrderApproveView.as_view(), name='order_approve'),
     path('orders/<int:pk>/update_state/', views.OrderUpdateStateView.as_view(), name='order_update_state'),
     path('products/', views.ProductListView.as_view(), name='product_list'),
     path('products/add/', views.ProductCreateView.as_view(), name='product_add'),

@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from menu_app.models import Product, Category
 from bookings.models import Booking, Table, TimeSlot
 from orders.models import Order
+from django.db.models import Case, When
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -36,7 +37,14 @@ class BookingListView(LoginRequiredMixin, StaffRequiredMixin, ListView):
     paginate_by = 20  
 
     def get_queryset(self):
-        return Booking.objects.all().order_by('-approved_date')
+        # Order by status: Pending -> Approved -> Rejected
+        return Booking.objects.annotate(
+            status_order=Case(
+                When(is_approved=False, is_rejected=False, then=1),
+                When(is_approved=True, then=2),
+                When(is_rejected=True, then=3),
+            )
+        ).order_by('status_order', '-id')
 
 class OrderListView(LoginRequiredMixin, StaffRequiredMixin, ListView):
     model = Order
@@ -116,6 +124,18 @@ class OrderDetailView(LoginRequiredMixin, StaffRequiredMixin, DetailView):
     model = Order
     template_name = 'custom_admin/order_detail.html'
     context_object_name = 'order'
+
+class OrderApproveView(LoginRequiredMixin, StaffRequiredMixin, View):
+    def post(self, request, pk):
+        order = get_object_or_404(Order, pk=pk)
+        if order.state == 'PENDIENTE_APROBACION':
+            order.state = 'APROBADO'
+            order.save()
+            messages.success(request, f"El pedido #{order.code} ha sido aprobado. El cliente ya puede proceder con el pago.")
+        else:
+            messages.warning(request, f"El pedido #{order.code} ya se encuentra en estado '{order.get_state_display()}'.")
+        # Redirigir a la vista de detalle para ver el cambio y el mensaje.
+        return redirect('custom_admin:order_detail', pk=pk)
 
 class OrderUpdateStateView(LoginRequiredMixin, View):
     def post(self, request, pk):
