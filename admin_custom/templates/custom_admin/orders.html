@@ -2,10 +2,11 @@
 {% block content %}
 <div class="container mt-4">
     <h2>Gestión de Pedidos</h2>
+    {% if user.is_admin %}
+        <a href="{% url 'custom_admin:order_create' %}" class="btn btn-primary mb-3">Crear Pedido</a>
+    {% endif %}
 
-{% if user.is_admin %}
-<a href="{% url 'custom_admin:order_create' %}" class="btn btn-primary mb-3">Crear Pedido</a>
-{% endif %}
+
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -39,6 +40,7 @@
                         {% csrf_token %}
                         <button type="submit" class="btn btn-sm btn-primary">Marcar como Entregado</button>
                     </form>
+                   
                     {% endif %}
                 </td>
             </tr>
