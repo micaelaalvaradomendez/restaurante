@@ -19,8 +19,16 @@ class ManejaPedido(LoginRequiredMixin):
     def ver_carrito(request):
         carrito = request.session.get('carrito', {})
         productos = Product.objects.filter(id__in=carrito.keys())
-        precio = sum(producto.price * carrito.get(str(producto.id), 0) for producto in productos)
-        return render(request, 'menu/carrito.html', {'productos': productos, 'carrito': carrito, 'precio': precio})
+        items = []
+        for producto in productos:
+            cantidad = carrito.get(str(producto.id), 0)
+            item = type('Item', (), {})()
+            item.product = producto
+            item.quantity = cantidad
+            item.subtotal = producto.price * cantidad
+            items.append(item)
+        total = sum(item.subtotal for item in items)
+        return render(request, 'menu/carrito.html', {'items': items, 'total': total})
 
     def confirmar_pedido(request):
         carrito = request.session.get('carrito', {})
