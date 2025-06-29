@@ -9,7 +9,7 @@
             <th>Cliente</th>
             <th>Mesa</th>
             <th>Horario</th>
-            <th>Aprobada</th>
+            <th>Estado</th>
             <th>Observaciones</th>
             <th>Acciones</th>
         </tr>
@@ -22,13 +22,15 @@
             <td>{{ booking.table }}</td>
             <td>{{ booking.timeslot }}</td>
             <td>
-                {% if booking.is_approved %}
-                    <span class="badge bg-success">Sí</span>
+                {% if booking.is_rejected %}
+                    <span class="badge bg-danger">Rechazada</span>
+                {% elif booking.is_approved %}
+                    <span class="badge bg-success">Aprobada</span>
                 {% else %}
                     <span class="badge bg-warning text-dark">Pendiente</span>
                 {% endif %}
             </td>
-            <td>{{ booking.observations }}{% if booking.is_rejected %} - Reserva Rechazada{% endif %}</td>
+            <td>{{ booking.observations|default:"-" }}</td>
             <td>
                 {% if not booking.is_approved and not booking.is_rejected %}
                 <form method="post" action="{% url 'custom_admin:approve_booking' booking.id %}" style="display:inline;">
