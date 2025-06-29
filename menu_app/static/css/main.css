@@ -4,20 +4,11 @@
     --dorado: #FFD28F;
     --marron-claro: #A6845E;
     --marron-oscuro: #554439;
-    --azul-noche: #2E4158;
+    --azul-noche: #323c49;
     --celeste-luna: #A8CAE8;
     --coral: #F9B8A7;
 
     --fuente-principal: 'Montserrat', 'Quicksand', Arial, sans-serif;
-}
-
-body {
-    padding-top: 70px; 
-    background: var(--blanco);
-    color: var(--marron-oscuro);
-    font-family: var(--fuente-principal);
-    font-size: 0.5rem;
-    line-height: 1.6;
 }
 
 body {
@@ -84,7 +75,6 @@ textarea:focus {
     background: var(--azul-noche);
     color: var(--blanco);
     padding: 1rem 2rem;
-    border-bottom: 2px solid var(--marron-oscuro);
     box-shadow: 0 2px 4px var(--dorado);
 }
 
@@ -132,9 +122,8 @@ input[type="submit"]:disabled {
     box-shadow: none;
 }
 
-.btn btn-secundary{
+.btn-secondary{
     background: var(--blanco);
     color: var(--azul-noche);
     padding: 0.75em 2.2em;
-
 }
