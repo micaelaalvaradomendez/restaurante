@@ -3,6 +3,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'menu_app/styles.css' %}">
+<div class="container mt-5">
 <h2>Mis notificaciones</h2>
 <ul class="list-group">
     {% for status in notificaciones_estado_lista %}
@@ -25,4 +26,5 @@
         <li class="list-group-item">No tienes notificaciones.</li>
     {% endfor %}
 </ul>
+</div>
 {% endblock %}
