@@ -4,7 +4,7 @@
     --dorado: #FFD28F;
     --marron-claro: #A6845E;
     --marron-oscuro: #554439;
-    --azul-noche: #323c49;
+    --azul-noche: #223042;
     --celeste-luna: #A8CAE8;
     --coral: #F9B8A7;
 
@@ -16,8 +16,9 @@ body {
     background: var(--blanco);
     color: var(--marron-oscuro);
     font-family: var(--fuente-principal);
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.0rem;
+    line-height: 1.
+    6;
 }
 
 h1,
