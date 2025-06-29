@@ -5,7 +5,7 @@
     <h1 class="text-center mb-4">Menú</h1>
 
     {% for categoria, productos in categorias_con_productos %}
-    <h2 class="mt-4">{{ categoria.name }}</h2>
+    <h2 class="mt-4">{{ categoria }}</h2>
     {% if productos %}
     <div class="row">
         {% for producto in productos %}
@@ -15,19 +15,28 @@
                 <img src="{{ producto.image.url }}" class="card-img-top" alt="{{ producto.name }}">
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ producto.name }}</h5>
+                    <h5 class="card-title">
+                        {{ producto.name }}
+                        {% if user.is_authenticated %}
+                            {% if producto.id in favoritos_ids %}
+                                <a href="{% url 'remove_favorite' producto.id %}" title="Quitar de favoritos" style="color:gold;">&#9733;</a>
+                            {% else %}
+                                <a href="{% url 'add_favorite' producto.id %}" title="Agregar a favoritos" style="color:gray;">&#9734;</a>
+                            {% endif %}
+                        {% endif %}
+                    </h5>
                     <p class="card-text">{{ producto.description }}</p>
                     <p class="card-text"><strong>${{ producto.price }}</strong></p>
                     <a href="{% url 'product_detail' producto.id %}" class="btn btn-primary mb-2">Ver más</a>
                     {% if user.is_authenticated %}
-                    {% if producto.is_available %}
-                    <form method="post" action="{% url 'agregar_al_carrito' producto.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success">Agregar al pedido</button>
-                    </form>
-                    {% else %}
-                    <button class="btn btn-secondary" disabled>No disponible</button>
-                    {% endif %}
+                        {% if producto.is_available %}
+                        <form method="post" action="{% url 'agregar_al_carrito' producto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Agregar al pedido</button>
+                        </form>
+                        {% else %}
+                        <button class="btn btn-secondary" disabled>No disponible</button>
+                        {% endif %}
                     {% else %}
                     <a href="{% url 'login' %}?next={% url 'menu_por_categorias' %}" class="btn btn-success">Agregar al pedido</a>
                     {% endif %}
