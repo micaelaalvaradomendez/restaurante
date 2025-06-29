@@ -15,9 +15,11 @@ from notifications.models import Notification
 from django.contrib import messages
 from django.forms import inlineformset_factory
 from orders.models import Order
+from .forms import OrderItemForm
 
 OrderItemFormSet = inlineformset_factory(
     Order, OrderItem,
+    form=OrderItemForm,
     fields=['product', 'quantity', 'price_at_purchase'],
     extra=1, can_delete=True
 )
