@@ -65,18 +65,6 @@ class OrderListView(LoginRequiredMixin, StaffRequiredMixin, ListView):
     def get_queryset(self):
         return Order.objects.all().order_by('-id')
 
-class OrderDetailView(LoginRequiredMixin, StaffRequiredMixin, DetailView):
-    model = Order
-    template_name = 'custom_admin/order_detail.html'
-    context_object_name = 'order'
-
-class OrderUpdateStateView(LoginRequiredMixin, View):
-    def post(self, request, pk):
-        order = get_object_or_404(Order, pk=pk)
-        order.state = 'ENVIADO'
-        order.save()
-        return redirect('custom_admin:order_list')
-
 class OrderCreateView(CreateView):
     model = Order
     fields = ['user', 'state']

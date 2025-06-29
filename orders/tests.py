@@ -116,7 +116,7 @@ class OrderModelTest(TestCase):
         self.assertEqual(self.order.code, "PEDIDO001")
         self.assertEqual(self.order.user.username, "cliente")
         self.assertEqual(self.order.amount, Decimal('69000.00'))
-        self.assertEqual(self.order.state, "PENDIENTE_PAGO")
+        self.assertEqual(self.order.state, "PENDIENTE_APROBACION")
         self.assertEqual(self.order.products.count(), 4)
         
         # Verificar los productos incluidos
@@ -193,7 +193,7 @@ class OrderModelTest(TestCase):
 
     def test_order_state_transitions(self):
         # Verifica los cambios de estado del pedido
-        self.assertEqual(self.order.state, "PENDIENTE_PAGO")
+        self.assertEqual(self.order.state, "PENDIENTE_APROBACION")
         
         # Cambiar a ENVIADO
         self.order.state = "ENVIADO"
