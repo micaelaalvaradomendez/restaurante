@@ -7,6 +7,7 @@
     --azul-noche: #223042;
     --celeste-luna: #A8CAE8;
     --coral: #F9B8A7;
+    --coral-noche: #8f655a;
 
     --fuente-principal: 'Montserrat', 'Quicksand', Arial, sans-serif;
 }
@@ -127,4 +128,29 @@ input[type="submit"]:disabled {
     background: var(--blanco);
     color: var(--azul-noche);
     padding: 0.75em 2.2em;
+}
+
+.btn-success {
+    background: var(--dorado) !important;
+    color: var(--marron-oscuro) !important;
+    border: none !important;
+}
+.btn-success:hover, .btn-success:focus {
+    background: var(--coral) !important;
+    color: var(--blanco) !important;
+}
+
+.btn-secondary, .btn-secondary:disabled, .btn-secondary[disabled] {
+    background: var(--arena) !important;
+    color: #6B4F2B !important; /* marrón más oscuro */
+    border: none !important;
+    opacity: 1 !important;
+}
+
+.btn-primary{
+    background: Rgb(224,102,102) !important;
+    color: var(--dorado) !important; /* marrón más oscuro */
+    border: none !important;
+    opacity: 1 !important;
+
 }
