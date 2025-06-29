@@ -163,3 +163,9 @@ input[type="submit"]:disabled {
 .carousel-item {
     transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1) !important;
 }
+
+.alert-success {
+    background: var(--arena) !important;   /* dorado */
+    color: var(--azul-noche) !important;        /* marrón oscuro */
+    border: none !important;
+}
