@@ -1,0 +1,127 @@
+{% extends "custom_admin/base.html" %}
+{% block content %}
+<div class="container my-4">
+    <h2>{% if object %}Editar{% else %}Crear{% endif %} Pedido</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if is_create %}
+            <h4>Productos del pedido</h4>
+            {{ formset.management_form }}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio en compra</th>
+                        <th>Subtotal</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subform in formset %}
+                    <tr>
+                        <td>{{ subform.product }}</td>
+                        <td>{{ subform.quantity }}</td>
+                        <td>{{ subform.price_at_purchase }}</td>
+                        <td class="subtotal-cell"></td>
+                        <td>
+                            {% if subform.instance.pk %}
+                                {{ subform.DELETE }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="button" id="add-item" class="btn btn-secondary mb-3">Agregar producto</button>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'custom_admin:order_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+{% if is_create %}
+<script>
+window.productPrices = {
+    {% for prod in formset.forms.0.fields.product.queryset %}
+        "{{ prod.pk }}": "{{ prod.price }}"{% if not forloop.last %},{% endif %}
+    {% endfor %}
+};
+
+function setProductPrices(row) {
+    const select = row.querySelector('select');
+    if (!select) return;
+    for (const [pk, price] of Object.entries(window.productPrices || {})) {
+        const option = select.querySelector('option[value="' + pk + '"]');
+        if (option) {
+            option.setAttribute('data-precio', price);
+        }
+    }
+}
+
+function updateRow(row) {
+    const select = row.querySelector('select');
+    const quantityInput = row.querySelector('input[name$="quantity"]');
+    const priceInput = row.querySelector('input[name$="price_at_purchase"]');
+    const subtotalCell = row.querySelector('.subtotal-cell');
+    if (!select || !quantityInput || !priceInput || !subtotalCell) return;
+
+    const selectedOption = select.options[select.selectedIndex];
+    const price = parseFloat(selectedOption.getAttribute('data-precio')) || 0;
+    const quantity = parseInt(quantityInput.value) || 0;
+    const subtotal = price * quantity;
+
+    priceInput.value = price.toFixed(2);
+    subtotalCell.textContent = '$' + subtotal.toFixed(2);
+}
+
+function addListeners(row) {
+    setProductPrices(row);
+    const select = row.querySelector('select');
+    const quantityInput = row.querySelector('input[name$="quantity"]');
+    if (select) {
+        select.addEventListener('change', function() { updateRow(row); });
+    }
+    if (quantityInput) {
+        quantityInput.addEventListener('input', function() { updateRow(row); });
+    }
+    updateRow(row);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const addBtn = document.getElementById('add-item');
+    const tableBody = document.querySelector('table.table tbody');
+    const totalForms = document.getElementById('id_orderitem_set-TOTAL_FORMS');
+
+    tableBody.querySelectorAll('tr').forEach(addListeners);
+
+    addBtn.addEventListener('click', function() {
+        const currentForms = parseInt(totalForms.value);
+        const lastRow = tableBody.querySelector('tr:last-child');
+        const newRow = lastRow.cloneNode(true);
+
+        newRow.querySelectorAll('input, select').forEach(function(input) {
+            if (input.type === 'checkbox' || input.type === 'radio') {
+                input.checked = false;
+            } else {
+                input.value = '';
+            }
+            if (input.name) {
+                input.name = input.name.replace(/-\d+-/, '-' + currentForms + '-');
+            }
+            if (input.id) {
+                input.id = input.id.replace(/-\d+-/, '-' + currentForms + '-');
+            }
+        });
+        const subtotalCell = newRow.querySelector('.subtotal-cell');
+        if (subtotalCell) subtotalCell.textContent = '';
+        tableBody.appendChild(newRow);
+        totalForms.value = currentForms + 1;
+        addListeners(newRow);
+    });
+});
+</script>
+{% endif %}
+{% endblock %}

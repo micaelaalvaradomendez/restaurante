@@ -23,7 +23,6 @@
             <td>{{ item.product.name }}</td>
             <td>{{ item.quantity }}</td>
             <td>${{ item.price_at_purchase }}</td>
-            <!-- <td>${{ item.quantity|floatformat:0|add:"0"|floatformat:0|floatformat:0|add:item.price_at_purchase|floatformat:2 }}</td>-->
             <td>${{item.subtotal}}</td>
         </tr>
         {% empty %}
@@ -37,4 +36,5 @@
 <p><strong>Total del pedido:</strong> ${{ order.amount }}</p>
 
 <a href="{% url 'custom_admin:order_list' %}" class="btn btn-secondary">Volver a la lista de pedidos</a>
+
 {% endblock %}

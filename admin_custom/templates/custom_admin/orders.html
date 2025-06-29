@@ -2,6 +2,10 @@
 {% block content %}
 <h2>Gestionar Pedidos</h2>
 
+{% if user.is_admin %}
+<a href="{% url 'custom_admin:order_create' %}" class="btn btn-primary mb-3">Crear Pedido</a>
+{% endif %}
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -23,6 +27,8 @@
             <td>${{ order.amount }}</td>
             <td>
                 <a href="{% url 'custom_admin:order_detail' order.id %}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{% url 'custom_admin:order_edit' order.id %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'custom_admin:order_delete' order.id %}" class="btn btn-sm btn-danger">Eliminar</a>
                 {% if order.state != 'ENVIADO' %}
                 <form method="post" action="{% url 'custom_admin:order_update_state' order.id %}" style="display:inline;">
                     {% csrf_token %}

@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, ListView, UpdateView, DeleteView,
 from django.contrib.auth.mixins import UserPassesTestMixin
 from menu_app.models import Product, Category
 from bookings.models import Booking, Table, TimeSlot
-from orders.models import Order
+from orders.models import Order, OrderItem
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -11,6 +11,14 @@ from .mixins import StaffRequiredMixin
 from bookings.models import TimeSlot
 from notifications.models import Notification
 from django.contrib import messages
+from django.forms import inlineformset_factory
+from orders.models import Order
+
+OrderItemFormSet = inlineformset_factory(
+    Order, OrderItem,
+    fields=['product', 'quantity', 'price_at_purchase'],
+    extra=1, can_delete=True
+)
 
 class AdminRequiredMixin(UserPassesTestMixin):
     def test_func(self):
@@ -45,6 +53,67 @@ class OrderListView(LoginRequiredMixin, StaffRequiredMixin, ListView):
 
     def get_queryset(self):
         return Order.objects.all().order_by('-id')
+
+class OrderDetailView(LoginRequiredMixin, StaffRequiredMixin, DetailView):
+    model = Order
+    template_name = 'custom_admin/order_detail.html'
+    context_object_name = 'order'
+
+class OrderUpdateStateView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        order = get_object_or_404(Order, pk=pk)
+        order.state = 'ENVIADO'
+        order.save()
+        return redirect('custom_admin:order_list')
+
+class OrderCreateView(CreateView):
+    model = Order
+    fields = ['user', 'state']
+    template_name = 'custom_admin/order_edit.html'
+    success_url = reverse_lazy('custom_admin:order_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_create'] = True
+        if self.request.POST:
+            context['formset'] = OrderItemFormSet(self.request.POST)
+        else:
+            context['formset'] = OrderItemFormSet()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+        if formset.is_valid():
+            carrito = {}
+            for item_form in formset:
+                if item_form.cleaned_data and not item_form.cleaned_data.get('DELETE', False):
+                    producto = item_form.cleaned_data['product']
+                    cantidad = item_form.cleaned_data['quantity']
+                    carrito[producto.id] = cantidad
+            cliente = form.cleaned_data['user']
+            pedido = Order.objects.crear_pedido_desde_carrito(cliente, carrito)
+            pedido.confirmado = True
+            pedido.save()
+            return redirect(self.success_url)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+class OrderUpdateView(UpdateView):
+    model = Order
+    fields = ['state']
+    template_name = 'custom_admin/order_edit.html'
+    success_url = reverse_lazy('custom_admin:order_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_create'] = False
+        return context
+
+class OrderDeleteView(DeleteView):
+    model = Order
+    template_name = 'custom_admin/order_confirm_delete.html'
+    success_url = reverse_lazy('custom_admin:order_list')
 
 class ProductListView(LoginRequiredMixin, StaffRequiredMixin, ListView):
     model = Product
@@ -112,18 +181,6 @@ class ProductDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
     template_name = 'custom_admin/product_confirm_delete.html'
     success_url = reverse_lazy('custom_admin:product_list')
 
-class OrderDetailView(LoginRequiredMixin, StaffRequiredMixin, DetailView):
-    model = Order
-    template_name = 'custom_admin/order_detail.html'
-    context_object_name = 'order'
-
-class OrderUpdateStateView(LoginRequiredMixin, View):
-    def post(self, request, pk):
-        order = get_object_or_404(Order, pk=pk)
-        order.state = 'ENVIADO'
-        order.save()
-        return redirect('custom_admin:order_list')
-
 class TimeSlotListView(ListView):
     model = TimeSlot
     template_name = "custom_admin/timeslot_list.html"
@@ -146,7 +203,6 @@ class TimeSlotDeleteView(DeleteView):
     template_name = "custom_admin/timeslot_confirm_delete.html"
     success_url = reverse_lazy('custom_admin:timeslot_list')
  
-    
 class NotificacionAdminListView(ListView):
     model = Notification
     template_name = "custom_admin/notifications_admin_list.html"
@@ -202,3 +258,23 @@ class CategoryUpdateView(UpdateView):
     fields = ['name', 'description', 'is_active']
     template_name = "custom_admin/category_form.html"
     success_url = reverse_lazy('custom_admin:category_list')
+
+class CarritoOrdenView(LoginRequiredMixin, View):
+    def post(self, request):
+        carrito = request.session.get('carrito', [])
+        usuario = request.user
+
+        Order.objects.crear_pedido_desde_carrito(usuario, carrito)
+        
+        messages.success(request, "El pedido ha sido creado exitosamente.")
+        return redirect('nombre_de_la_vista_de_redireccion')  # Cambia esto a la vista a la que quieras redirigir después de crear el pedido
+
+def confirmar_pedido_admin(request):
+    carrito = request.session.get('carrito', {})
+    if not carrito:
+        return redirect('custom_admin:order_list')
+    pedido = Order.objects.crear_pedido_desde_carrito(request.user, carrito)
+    pedido.confirmado = True
+    pedido.save()
+    request.session['carrito'] = {}
+    return redirect('custom_admin:order_list')
