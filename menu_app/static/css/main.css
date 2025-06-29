@@ -154,3 +154,12 @@ input[type="submit"]:disabled {
     opacity: 1 !important;
 
 }
+
+.carousel-control-prev,
+.carousel-control-next {
+    display: none !important;
+}
+
+.carousel-item {
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1) !important;
+}
