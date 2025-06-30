@@ -152,7 +152,7 @@
       "description": "Refresco clásico en botella de vidrio, ideal para acompañar tus comidas.",
       "price": 4000.00,
       "quantity": 15,
-      "image": "/static/images/cocavidrio.jpg",
+      "image": "/static/images/coca-vidrio.jpg",
       "is_available": true,
       "categories": [
         4
