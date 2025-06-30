@@ -14,12 +14,15 @@
 
 body {
     padding-top: 70px;
+    padding-bottom: 60px;
     background: var(--blanco);
     color: var(--marron-oscuro);
     font-family: var(--fuente-principal);
     font-size: 1.0rem;
-    line-height: 1.
-    6;
+    line-height: 1. 6;
+    margin-bottom: 0;
+    position: relative;
+    min-height: 100vh;
 }
 
 h1,
@@ -80,12 +83,18 @@ textarea:focus {
     box-shadow: 0 2px 4px var(--dorado);
 }
 
-footer {
+.footer-custom {
+    height: 80px;
+    width: 100%;
+    bottom: 0;
     background: var(--arena);
     color: var(--marron-claro);
-    padding: 1.5rem 2rem;
+    padding: 20px;
     text-align: center;
     border-top: 1px solid var(--dorado);
+    box-sizing: border-box;
+    margin-bottom: 0;
+    position: absolute;
 }
 
 .button,
@@ -124,7 +133,7 @@ input[type="submit"]:disabled {
     box-shadow: none;
 }
 
-.btn-secondary{
+.btn-secondary {
     background: var(--blanco);
     color: var(--azul-noche);
     padding: 0.75em 2.2em;
@@ -135,21 +144,25 @@ input[type="submit"]:disabled {
     color: var(--marron-oscuro) !important;
     border: none !important;
 }
-.btn-success:hover, .btn-success:focus {
+
+.btn-success:hover,
+.btn-success:focus {
     background: var(--coral) !important;
     color: var(--blanco) !important;
 }
 
-.btn-secondary, .btn-secondary:disabled, .btn-secondary[disabled] {
+.btn-secondary,
+.btn-secondary:disabled,
+.btn-secondary[disabled] {
     background: var(--arena) !important;
     color: #6B4F2B !important;
     border: none !important;
     opacity: 1 !important;
 }
 
-.btn-primary{
-    background: Rgb(224,102,102) !important;
-    color: var(--dorado) !important; 
+.btn-primary {
+    background: Rgb(224, 102, 102) !important;
+    color: var(--dorado) !important;
     border: none !important;
     opacity: 1 !important;
 
@@ -165,7 +178,7 @@ input[type="submit"]:disabled {
 }
 
 .alert-success {
-    background: var(--arena) !important;  
-    color: var(--azul-noche) !important;        
+    background: var(--arena) !important;
+    color: var(--azul-noche) !important;
     border: none !important;
 }

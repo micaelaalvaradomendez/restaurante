@@ -28,19 +28,20 @@
                 <td><span class="badge bg-primary">{{ order.get_state_display }}</span></td>
                 <td>
                     <a href="{% url 'custom_admin:order_detail' order.id %}" class="btn btn-sm btn-info">Ver</a>
+                    {% if user.is_admin %}
                         <a href="{% url 'custom_admin:order_edit' order.id %}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="{% url 'custom_admin:order_delete' order.id %}" class="btn btn-sm btn-danger">Eliminar</a>
-                {% if order.state == 'PENDIENTE_APROBACION' %}
-                    <form action="{% url 'custom_admin:order_approve' order.id %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-success">Aprobar</button>
-                    </form>
+                        <a href="{% url 'custom_admin:order_delete' order.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    {% endif %}
+                    {% if order.state == 'PENDIENTE_APROBACION' %}
+                        <form action="{% url 'custom_admin:order_approve' order.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-success">Aprobar</button>
+                        </form>
                     {% elif order.state == 'PREPARACION' %}
-                    <form method="post" action="{% url 'custom_admin:order_update_state' order.id %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-primary">Marcar como Entregado</button>
-                    </form>
-                   
+                        <form method="post" action="{% url 'custom_admin:order_update_state' order.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-primary">Marcar como Entregado</button>
+                        </form>
                     {% endif %}
                 </td>
             </tr>
