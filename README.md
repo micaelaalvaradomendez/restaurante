@@ -1,4 +1,4 @@
-# Restaurante
+<h1> Restaurante </h1>
 
 Este es un proyecto desarrollado en la materia " Laboratorio de programacion y lenguaje ", donde se desarrollo una gestion integral de un restaurante.
 
@@ -14,7 +14,7 @@ La estructura del proyecto es el siguiente:
 
 ---
 
-# Grupo 6, Integrantes
+<h1> Grupo 6, Integrantes </h1>
 
 Aguila Tayra
 Alvarado Micaela
@@ -24,24 +24,24 @@ Sarmiento Ximena
 
 ---
 
-## Aplicar entorno virtual
+<li>Aplicar entorno virtual</li>
 python -m venv env
 
-## Activar entorno virtual
+<li>Activar entorno virtual</li>
 - Linux/Mac: source env/bin/activate
 - Windows: source env/Scripts/activate
 - Windows (alternativa): ./env/Scripts.activate
 en VSC
 .\env\Scripts\activate
 
-## Instalar dependencias
+<li>Instalar dependencias</li>
 pip install -r requirements
 
-## Hacer migraciones
+<li>Hacer migraciones</li>
 python manage.py migrate
 
-## Llenar base de datos con fixture
+<li> Llenar base de datos con fixture </li>
 python manage.py loaddata events.json
 
-## Correr app
+<li> Correr app </li>
 python manage.py runserver
