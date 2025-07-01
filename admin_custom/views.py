@@ -84,16 +84,8 @@ class OrderCreateView(CreateView):
         context = self.get_context_data()
         formset = context['formset']
         if formset.is_valid():
-            carrito = {}
-            for item_form in formset:
-                if item_form.cleaned_data and not item_form.cleaned_data.get('DELETE', False):
-                    producto = item_form.cleaned_data['product']
-                    cantidad = item_form.cleaned_data['quantity']
-                    carrito[producto.id] = cantidad
             cliente = form.cleaned_data['user']
-            pedido = Order.objects.crear_pedido_desde_carrito(cliente, carrito)
-            pedido.confirmado = True
-            pedido.save()
+            Order.objects.crear_pedido_admin(cliente, formset)
             return redirect(self.success_url)
         else:
             return self.render_to_response(self.get_context_data(form=form))
@@ -188,20 +180,19 @@ class OrderDetailView(LoginRequiredMixin, StaffRequiredMixin, DetailView):
 class OrderApproveView(LoginRequiredMixin, StaffRequiredMixin, View):
     def post(self, request, pk):
         order = get_object_or_404(Order, pk=pk)
-        if order.state == 'PENDIENTE_APROBACION':
-            order.state = 'APROBADO'
-            order.save()
+        if order.aprobar():
             messages.success(request, f"El pedido #{order.code} ha sido aprobado. El cliente ya puede proceder con el pago.")
         else:
             messages.warning(request, f"El pedido #{order.code} ya se encuentra en estado '{order.get_state_display()}'.")
-        # Redirigir a la vista de detalle para ver el cambio y el mensaje.
         return redirect('custom_admin:order_detail', pk=pk)
 
 class OrderUpdateStateView(LoginRequiredMixin, View):
     def post(self, request, pk):
         order = get_object_or_404(Order, pk=pk)
-        order.state = 'ENVIADO'
-        order.save()
+        if order.marcar_enviado():
+            messages.success(request, f"El pedido #{order.code} fue marcado como enviado.")
+        else:
+            messages.warning(request, f"El pedido #{order.code} no puede ser marcado como enviado desde el estado actual.")
         return redirect('custom_admin:order_list')
 
 class TimeSlotListView(ListView):

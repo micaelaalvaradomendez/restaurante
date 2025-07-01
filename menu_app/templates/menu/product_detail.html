@@ -16,11 +16,17 @@
             <h2 class="mb-3">{{ product.name }}</h2>
             <p>{{ product.description }}</p>
             <h4 class="text-primary">${{ product.price }}</h4>
-
-            {% if product.quantity > 0 %}
-                <span class="badge bg-success">Disponible</span>
+            {% if user.is_authenticated %}
+                {% if product.is_available %}
+                <form method="post" action="{% url 'orders:agregar_al_carrito' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Agregar al pedido</button>
+                </form>
+                {% else %}
+                <button class="btn btn-secondary" disabled>No disponible</button>
+                {% endif %}
             {% else %}
-                <span class="badge bg-secondary">No disponible</span>
+            <a href="{% url 'login' %}?next={% url 'menu_por_categorias' %}" class="btn btn-success">Agregar al pedido</a>
             {% endif %}
         </div>
     </div>

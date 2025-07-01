@@ -45,6 +45,18 @@ class OrderManager(models.Manager):
 
         return pedido
 
+    def crear_pedido_admin(self, cliente, formset):
+        carrito = {}
+        for item_form in formset:
+            if item_form.cleaned_data and not item_form.cleaned_data.get('DELETE', False):
+                producto = item_form.cleaned_data['product']
+                cantidad = item_form.cleaned_data['quantity']
+                carrito[producto.id] = cantidad
+        pedido = self.crear_pedido_desde_carrito(cliente, carrito)
+        pedido.confirmado = True
+        pedido.save()
+        return pedido
+
 class Order(models.Model):
     objects = OrderManager()
     STATE_CHOICES = [
@@ -65,6 +77,20 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Pedido #{self.code}"
+    
+    def aprobar(self):
+        if self.state == 'PENDIENTE_APROBACION':
+            self.state = 'APROBADO'
+            self.save()
+            return True
+        return False
+    
+    def marcar_enviado(self):
+        if self.state == 'PREPARACION':
+            self.state = 'ENVIADO'
+            self.save()
+            return True
+        return False
  
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
